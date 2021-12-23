@@ -1,5 +1,5 @@
 {
-  "name": "node-develop-your-mvc-project-client",
+  "name": "mern-front-cli",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
