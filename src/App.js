@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext'
 
 import Home from './ui/views/pages/Home/Home'
 import Login from './ui/views/pages/Login'
+import SignUp from './ui/views/pages/SignUp'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </AuthProvider>
   )
