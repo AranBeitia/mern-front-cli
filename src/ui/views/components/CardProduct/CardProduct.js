@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import clientAxios from '../../../../config/axios'
 
 import Card from 'react-bootstrap/Card'
-import kitty from '../../../assets/img/hello-kitty.jpg'
 
 function CardProduct() {
   const [products, setProducts] = useState([])
@@ -21,7 +20,10 @@ function CardProduct() {
       {products ? (
         products.map((product) => (
           <Card key={product._id}>
-            <Card.Img variant="top" src={product.image} />
+            <Card.Img
+              variant="top"
+              src={`http://localhost:4000/${product.image}`}
+            />
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
               <Card.Text>{product.description}</Card.Text>
