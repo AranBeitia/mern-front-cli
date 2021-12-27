@@ -8,7 +8,7 @@ function CardProduct() {
   const [products, setProducts] = useState([])
 
   const consultAPI = async () => {
-    const consultProducts = await clientAxios.get('/books')
+    const consultProducts = await clientAxios.get('/')
     setProducts(consultProducts.data.data)
   }
 
@@ -20,15 +20,11 @@ function CardProduct() {
     <>
       {products ? (
         products.map((product) => (
-          <Card>
-            <Card.Img variant="top" src={kitty} />
+          <Card key={product._id}>
+            <Card.Img variant="top" src={product.image} />
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
+              <Card.Text>{product.description}</Card.Text>
             </Card.Body>
             <Card.Footer>
               <small className="text-muted">Last updated 3 mins ago</small>
