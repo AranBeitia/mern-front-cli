@@ -6,30 +6,66 @@ import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../../../../firebase'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [auth, setAuth] = useState()
   const history = useNavigate()
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault()
-    try {
-      setError('')
-      setLoading(true)
-      await auth.signInWithEmailAndPassword(
-        emailRef.current.value,
-        passwordRef.current.value
-      )
-      history('/')
-    } catch (error) {
-      setError('Failed to login')
+    e.stopPropagation()
+
+    const email = emailRef.current.value
+    const password = passwordRef.current.value
+
+    signInWithEmailAndPassword(getAuth(), email, password)
+      .then((credentials) => {
+        if (credentials) {
+          setAuth(true)
+        }
+        fetchData(credentials.user.accessToken)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+    const fetchData = (token) => {
+      console.log(token)
+      fetch('http://localhost:4000/users/login', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
     }
+
+    // try {
+    //   setError('')
+    //   setLoading(true)
+    //   const token = await auth
+    //     .signInWithEmailAndPassword(
+    //       emailRef.current.value,
+    //       passwordRef.current.value
+    //     )
+    //     .then((res) => res)
+    //   console.log(token)
+
+    //   history('/')
+    // } catch (error) {
+    //   setError('Failed to login')
+    // }
   }
   return (
     <>
+      {auth ? '<div>Logged></div>' : '<div>Not Logged></div>'}
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: '100vh' }}
