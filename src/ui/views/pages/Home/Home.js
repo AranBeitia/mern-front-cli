@@ -1,12 +1,15 @@
 import CardProductFeed from '../../components/CardProduct'
+import Header from '../../components/Layout/Header'
 import Container from 'react-bootstrap/Container'
 
 function Home() {
   return (
-    <Container>
-      <h1>Products</h1>
-      <CardProductFeed />
-    </Container>
+    <>
+      <Header title={'Products'} />
+      <Container className="my-5">
+        <CardProductFeed />
+      </Container>
+    </>
   )
 }
 

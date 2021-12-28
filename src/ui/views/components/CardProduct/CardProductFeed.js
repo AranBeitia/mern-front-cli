@@ -1,11 +1,10 @@
-import CardGroup from 'react-bootstrap/CardGroup'
 import CardProduct from './CardProduct'
 
 function CardProductFeed() {
   return (
-    <CardGroup>
+    <div className="grid-wrapper">
       <CardProduct />
-    </CardGroup>
+    </div>
   )
 }
 
