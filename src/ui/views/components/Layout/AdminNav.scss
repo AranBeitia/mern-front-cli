@@ -1,0 +1,23 @@
+.admin-nav a {
+	display: block;
+	color: #302f2f;
+	margin-bottom: 2rem;
+	font-size: 1.8rem;
+	position: relative;
+	padding-left: 5rem;
+	padding-top: 2rem;
+	align-items: flex-start;
+	text-decoration: none;
+}
+.admin-nav a::before {
+	display: inline-block;
+	font-style: normal;
+	font-variant: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	font-size: 3rem;
+	margin-right: 1rem;
+	position: absolute;
+	left: 0;
+	top: 1rem;
+}

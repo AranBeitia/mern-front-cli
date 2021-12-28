@@ -8,7 +8,7 @@ function Header({ title }) {
       <Container>
         <Navbar.Brand>
           <Link to={'/'} className="link">
-            Chiringuito e-commerce
+            Luna negra shop
           </Link>
         </Navbar.Brand>
         <Navbar.Text>{title}</Navbar.Text>
