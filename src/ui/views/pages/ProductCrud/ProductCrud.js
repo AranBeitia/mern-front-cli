@@ -1,11 +1,16 @@
-import CardProductFeed from '../../components/CardProduct'
+import Header from '../../components/Layout/Header'
+import AdminNav from '../../components/Layout/AdminNav'
 import Container from 'react-bootstrap/Container'
 
 function ProductCrud() {
   return (
     <>
-      <Container>
-        <h2>Product crud</h2>
+      <Header title={'Administration'} />
+      <Container className="grid">
+        <AdminNav />
+        <main>
+          <h2>product crud</h2>
+        </main>
       </Container>
     </>
   )

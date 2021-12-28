@@ -1,11 +1,16 @@
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
+import { Link } from 'react-router-dom'
 
 function Header({ title }) {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand>Chiringuito e-commerce</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to={'/'} className="link">
+            Chiringuito e-commerce
+          </Link>
+        </Navbar.Brand>
         <Navbar.Text>{title}</Navbar.Text>
       </Container>
     </Navbar>
