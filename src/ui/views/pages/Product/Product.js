@@ -5,7 +5,7 @@ import AdminNav from '../../components/Layout/AdminNav'
 import Container from 'react-bootstrap/Container'
 import CardProductFeed from '../../components/CardProduct'
 
-function ProductCrud() {
+function Product() {
   return (
     <>
       <Header title={'Administration'} />
@@ -22,4 +22,4 @@ function ProductCrud() {
   )
 }
 
-export default ProductCrud
+export default Product
