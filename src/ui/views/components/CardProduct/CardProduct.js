@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import clientAxios from '../../../../config/axios'
 
 import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
 
-function CardProduct() {
+function CardProduct({ isEditable }) {
   const [products, setProducts] = useState([])
 
   const consultAPI = async () => {
@@ -21,18 +22,19 @@ function CardProduct() {
         products.map((product) => (
           <Card key={product._id}>
             <Card.Img variant="top" src={product.images.main} />
-            {/* <Card.Img
-              variant="top"
-              src={`http://localhost:4000/${product.images}`}
-            /> */}
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
               <Card.Text>{product.description}</Card.Text>
-            </Card.Body>
-            <Card.Footer>
               <small className="text-muted">{product.price}€ - </small>
               <small className="text-muted">{product.stock} units</small>
-            </Card.Footer>
+            </Card.Body>
+
+            {isEditable ? (
+              <Card.Footer className="d-flex justify-content-between">
+                <Button variant="success">Edit</Button>
+                <Button variant="danger">Delete</Button>
+              </Card.Footer>
+            ) : null}
           </Card>
         ))
       ) : (
