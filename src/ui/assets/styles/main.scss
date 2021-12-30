@@ -1,3 +1,6 @@
+@use 'layout';
+@use 'icons';
+
 *,
 *::before,
 *::after {
@@ -25,4 +28,13 @@ ul {
 
 :focus-visible {
 	outline: 0;
+}
+
+.link {
+	text-decoration: none;
+	color: white;
+
+	&:hover {
+		color: rgb(126, 126, 126);
+	}
 }
