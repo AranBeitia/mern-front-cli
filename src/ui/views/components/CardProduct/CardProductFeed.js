@@ -1,9 +1,9 @@
 import CardProduct from './CardProduct'
 
-function CardProductFeed() {
+function CardProductFeed({ isEditable }) {
   return (
     <div className="grid-wrapper">
-      <CardProduct />
+      <CardProduct isEditable={isEditable} />
     </div>
   )
 }
