@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Spinner from '../Spinner'
+import noImage from '../../../assets/img/no-image.jpeg'
 
 function CardProduct({ isEditable }) {
   const [products, setProducts] = useState([])
@@ -44,7 +45,15 @@ function CardProduct({ isEditable }) {
       {products ? (
         products.map((product) => (
           <Card key={product._id}>
-            <Card.Img variant="top" src={product.images.main} />
+            {product.images ? (
+              <Card.Img
+                variant="top"
+                src={`http://localhost:4000/${product.images}`}
+              />
+            ) : (
+              <Card.Img variant="top" src={noImage} />
+            )}
+
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
               <Card.Text>{product.description}</Card.Text>
