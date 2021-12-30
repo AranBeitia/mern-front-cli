@@ -15,6 +15,7 @@ function Login() {
   const [loading, setLoading] = useState(false)
   const [auth, setAuth] = useState()
   const history = useNavigate()
+  const [user, setUser] = useState('test')
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -34,9 +35,9 @@ function Login() {
         console.log(err)
       })
 
-    const fetchData = (token) => {
+    const fetchData = async (token) => {
       console.log(token)
-      fetch('http://localhost:4000/users/login', {
+      const loginResponse = await fetch('http://localhost:4000/users/login', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +45,10 @@ function Login() {
         },
       })
         .then((response) => response.json())
-        .then((data) => console.log(data))
+        .then((data) => data)
+
+      console.log(loginResponse)
+      setUser(loginResponse.user.email)
     }
 
     // try {
@@ -65,7 +69,7 @@ function Login() {
   }
   return (
     <>
-      {auth ? '<div>Logged></div>' : '<div>Not Logged></div>'}
+      {auth && user ? <div>{user} is logged</div> : <div>Not Logged</div>}
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: '100vh' }}

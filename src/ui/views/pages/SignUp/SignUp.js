@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import { Link, useNavigate } from 'react-router-dom'
-import { auth } from '../../../../firebase'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 function SignUp() {
   const emailRef = useRef()
@@ -17,19 +17,45 @@ function SignUp() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+    const email = emailRef.current.value
+    const password = passwordRef.current.value
+    const passwordConfirm = passwordConfirmRef.current.value
+
+    if (password !== passwordConfirm) {
       return setError('Passwords do not match')
     }
     try {
       setError('')
       setLoading(true)
-      await auth.createUserWithEmailAndPassword(
-        emailRef.current.value,
-        passwordRef.current.value
+      createUserWithEmailAndPassword(getAuth(), email, password).then(
+        (credentials) => {
+          if (credentials) {
+            console.log(credentials)
+            signUpUser(credentials._tokenResponse.idToken)
+          }
+        }
       )
-      history('/login')
+
+      // history('/login')
     } catch (error) {
       console.log(error)
+    }
+
+    async function signUpUser(token) {
+      const newUser = {
+        email: email,
+        password: password,
+      }
+
+      const signUpResponse = await fetch('http://localhost:4000/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newUser),
+      })
+      console.log(signUpResponse)
     }
   }
   return (
