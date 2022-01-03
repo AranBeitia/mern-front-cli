@@ -32,7 +32,17 @@ function Login() {
         fetchData(credentials.user.accessToken)
       })
       .catch((err) => {
-        console.log(err)
+        switch (true) {
+          case err.message.includes('password'):
+            setError('Password incorrect, please try again')
+            break
+          case err.message.includes('user'):
+            setError('User incorrect or not found, please try again or SignUp')
+            break
+          default:
+            setError('Server error, try to connect')
+            break
+        }
       })
 
     const fetchData = async (token) => {
