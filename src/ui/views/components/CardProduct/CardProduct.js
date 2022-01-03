@@ -73,7 +73,10 @@ function CardProduct({ isEditable }) {
 
             {isEditable ? (
               <Card.Footer className="d-flex justify-content-between">
-                <Link to={`/products/edit/${product._id}`} variant="success">
+                <Link
+                  to={`/products/edit/${product._id}`}
+                  className="btn btn-success"
+                >
                   Edit
                 </Link>
                 <Button
