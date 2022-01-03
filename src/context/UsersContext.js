@@ -5,6 +5,7 @@ const UsersContext = createContext()
 const initialState = {
   users: [],
   usersHasChanged: false,
+  isLoading: false,
 }
 
 function reducer(state, action) {
@@ -12,7 +13,14 @@ function reducer(state, action) {
     case 'CHANGE_USERS':
       return { ...state, usersHasChanged: true }
     case 'LOAD_USERS':
-      return { ...state, users: [...action.payload], usersHasChanged: false }
+      return {
+        ...state,
+        users: [...action.payload],
+        usersHasChanged: false,
+        isLoading: false,
+      }
+    case 'LOADING_USERS':
+      return { ...state, isLoading: true }
     default:
       return state
   }
@@ -25,6 +33,7 @@ function UsersContextProvider({ children }) {
     ...state,
     changeUsers: () => dispatch({ type: 'CHANGE_USERS' }),
     loadUsers: (data) => dispatch({ type: 'LOAD_USERS', payload: data }),
+    loadingUsers: () => dispatch({ type: 'LOADING_USERS' }),
   }
 
   return (

@@ -1,12 +1,11 @@
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import { useEffect, useState } from 'react'
 import clientAxios from '../../../../config/axios'
 import Swal from 'sweetalert2'
 import { useUsers } from '../../../../context/UsersContext'
 
 function CardEmployee(props) {
-  const { usersHasChanged, changeUsers } = useUsers()
+  const { changeUsers } = useUsers()
 
   const handleDelete = (id) => {
     Swal.fire({

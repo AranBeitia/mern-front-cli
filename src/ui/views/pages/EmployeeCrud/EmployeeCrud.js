@@ -10,7 +10,7 @@ function EmployeeCrud() {
       <Container className="grid">
         <AdminNav />
         <main>
-          <h2>emoloyee crud</h2>
+          <h2>Employee crud</h2>
           <CardEmployeeFeed />
         </main>
       </Container>

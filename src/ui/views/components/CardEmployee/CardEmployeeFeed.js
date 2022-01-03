@@ -2,9 +2,11 @@ import CardEmployee from './CardEmployee'
 import { useEffect, useState } from 'react'
 import clientAxios from '../../../../config/axios'
 import { useUsers } from '../../../../context/UsersContext'
+import Spinner from '../Spinner'
 
 function CardEmployeeFeed() {
-  const { users, loadUsers, usersHasChanged } = useUsers()
+  const { users, loadUsers, usersHasChanged, loadingUsers, isLoading } =
+    useUsers()
 
   useEffect(() => {
     fetchUsers()
@@ -14,12 +16,15 @@ function CardEmployeeFeed() {
   }, [usersHasChanged])
 
   const fetchUsers = async () => {
+    loadingUsers()
     const loadedUsers = await clientAxios.get('/users')
     loadUsers(loadedUsers.data.data)
   }
+
   return (
     <div className="grid-wrapper">
-      {users.length > 0 &&
+      {isLoading && <Spinner />}
+      {users ? (
         users.map((user) => {
           return (
             <CardEmployee
@@ -29,7 +34,10 @@ function CardEmployeeFeed() {
               email={user.email}
             />
           )
-        })}
+        })
+      ) : (
+        <p>No Users</p>
+      )}
     </div>
   )
 }
