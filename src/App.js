@@ -7,6 +7,7 @@ import Home from './ui/views/pages/Home/Home'
 import Login from './ui/views/pages/Login'
 import Product from './ui/views/pages/Product'
 import ProductNew from './ui/views/pages/Product/ProductNew'
+import ProductEdit from './ui/views/pages/Product/ProductEdit'
 import Employee from './ui/views/pages/EmployeeCrud'
 import Client from './ui/views/pages/ClientCrud'
 import SignUp from './ui/views/pages/SignUp'
@@ -24,6 +25,7 @@ function App() {
 
           <Route path="/products" element={<Product />} />
           <Route path="/products/new" element={<ProductNew />} />
+          <Route path="/products/edit/:id" element={<ProductEdit />} />
 
           <Route path="/employees" element={<Employee />} />
           <Route path="/clients" element={<Client />} />

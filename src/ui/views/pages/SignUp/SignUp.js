@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 function SignUp() {
+  const fullnameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -18,8 +19,13 @@ function SignUp() {
   async function handleSubmit(e) {
     e.preventDefault()
     const email = emailRef.current.value
+    const fullname = fullnameRef.current.value
     const password = passwordRef.current.value
     const passwordConfirm = passwordConfirmRef.current.value
+
+    if (password.length < 8) {
+      return setError('Passwords must be longer than 7 characters')
+    }
 
     if (password !== passwordConfirm) {
       return setError('Passwords do not match')
@@ -36,13 +42,14 @@ function SignUp() {
         }
       )
 
-      // history('/login')
+      history('/login')
     } catch (error) {
       console.log(error)
     }
 
     async function signUpUser(token) {
       const newUser = {
+        fullname: fullname,
         email: email,
         password: password,
       }
@@ -70,6 +77,14 @@ function SignUp() {
               <h2 className="text-center mb-4">Sign Up</h2>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit}>
+                <Form.Group id="fullname">
+                  <Form.Label>Fullname</Form.Label>
+                  <Form.Control
+                    type="text"
+                    ref={fullnameRef}
+                    required
+                  ></Form.Control>
+                </Form.Group>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
