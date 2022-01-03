@@ -8,6 +8,7 @@ import noImage from '../../../assets/img/no-image.jpeg'
 
 function CardProduct({ isEditable }) {
   const [products, setProducts] = useState([])
+  const [hasChanged, setHasChanged] = useState(false)
 
   const consultAPI = async () => {
     const consultProducts = await clientAxios.get('/products')
@@ -17,6 +18,13 @@ function CardProduct({ isEditable }) {
   useEffect(() => {
     consultAPI()
   }, [])
+
+  useEffect(() => {
+    if (hasChanged) {
+      consultAPI()
+      setHasChanged(false)
+    }
+  }, [hasChanged])
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -33,6 +41,7 @@ function CardProduct({ isEditable }) {
           if (res.status === 200) {
             Swal.fire('Deleted!', res.data.message, 'success')
           }
+          setHasChanged(true)
         })
       }
     })
