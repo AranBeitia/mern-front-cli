@@ -1,17 +1,21 @@
 import CardEmployee from './CardEmployee'
 import { useEffect, useState } from 'react'
 import clientAxios from '../../../../config/axios'
+import { useUsers } from '../../../../context/UsersContext'
 
 function CardEmployeeFeed() {
-  const [users, setUsers] = useState([])
+  const { users, loadUsers, usersHasChanged } = useUsers()
 
   useEffect(() => {
     fetchUsers()
   }, [])
+  useEffect(() => {
+    if (usersHasChanged) fetchUsers()
+  }, [usersHasChanged])
 
   const fetchUsers = async () => {
     const loadedUsers = await clientAxios.get('/users')
-    setUsers(loadedUsers.data.data)
+    loadUsers(loadedUsers.data.data)
   }
   return (
     <div className="grid-wrapper">
