@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import clientAxios from '../../../../config/axios'
 import Swal from 'sweetalert2'
 import Card from 'react-bootstrap/Card'
@@ -72,7 +73,9 @@ function CardProduct({ isEditable }) {
 
             {isEditable ? (
               <Card.Footer className="d-flex justify-content-between">
-                <Button variant="success">Edit</Button>
+                <Link to={`/products/edit/${product._id}`} variant="success">
+                  Edit
+                </Link>
                 <Button
                   variant="danger"
                   onClick={() => handleDelete(product._id)}
