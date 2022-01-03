@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import { Link, useNavigate } from 'react-router-dom'
+import Header from '../../components/Layout/Header'
 import { auth } from '../../../../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
@@ -60,25 +61,10 @@ function Login() {
       console.log(loginResponse)
       setUser(loginResponse.user.email)
     }
-
-    // try {
-    //   setError('')
-    //   setLoading(true)
-    //   const token = await auth
-    //     .signInWithEmailAndPassword(
-    //       emailRef.current.value,
-    //       passwordRef.current.value
-    //     )
-    //     .then((res) => res)
-    //   console.log(token)
-
-    //   history('/')
-    // } catch (error) {
-    //   setError('Failed to login')
-    // }
   }
   return (
     <>
+      <Header title="Login" />
       {auth && user ? <div>{user} is logged</div> : <div>Not Logged</div>}
       <Container
         className="d-flex align-items-center justify-content-center"
