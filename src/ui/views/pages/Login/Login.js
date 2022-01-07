@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Header from '../../components/Layout/Header'
 import { auth } from '../../../../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { useAuth } from '../../../../context/AuthContext'
 
 function Login() {
   const emailRef = useRef()
@@ -17,6 +18,7 @@ function Login() {
   const [auth, setAuth] = useState()
   const history = useNavigate()
   const [user, setUser] = useState('test')
+  const { setIsLogged } = useAuth()
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -60,6 +62,8 @@ function Login() {
 
       console.log(loginResponse)
       setUser(loginResponse.user.email)
+      setIsLogged(true)
+      history('/')
     }
   }
   return (

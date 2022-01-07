@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form'
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import Header from '../../components/Layout/Header'
+import { useAuth } from '../../../../context/AuthContext'
 
 function SignUp() {
   const fullnameRef = useRef()
@@ -15,6 +16,7 @@ function SignUp() {
   const passwordConfirmRef = useRef()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const { setIsLogged } = useAuth()
   const history = useNavigate()
 
   async function handleSubmit(e) {
@@ -42,8 +44,8 @@ function SignUp() {
           }
         }
       )
-
-      history('/login')
+      setIsLogged(true)
+      history('/')
     } catch (error) {
       console.log(error)
     }
