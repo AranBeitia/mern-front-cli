@@ -1,21 +1,23 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import Header from '../../components/Layout/Header'
 import AdminNav from '../../components/Layout/AdminNav'
 import Swal from 'sweetalert2'
 import { Container, Form, Button } from 'react-bootstrap'
 import clientAxios from '../../../../config/axios'
+import { useUsers } from '../../../../context/UsersContext'
 
 export default function EmployeeNew() {
   let navigate = useNavigate()
-  const [user, setUser] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    role: '',
-  })
+  const { id } = useParams()
+  const [user, setUser] = useState()
+  const { users, loadUsers } = useUsers()
+
+  const fetchUser = async () => {
+    const res = await clientAxios.get('/users')
+    setUser(res.data.data)
+  }
 
   const handleUser = (e) => {
     setUser({
@@ -34,7 +36,6 @@ export default function EmployeeNew() {
     formData.append('password', user.password)
     formData.append('role', user.role)
     try {
-      //   console.log(formData)
       const res = await clientAxios.post('/users', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -98,10 +99,11 @@ export default function EmployeeNew() {
               <Form.Group controlId="role" className="col">
                 <Form.Label>Role</Form.Label>
                 <Form.Control as="select" name="role" onChange={handleUser}>
-                  <option>Select role</option>
                   <option value="admin">Admin</option>
                   <option value="employee">Employee</option>
-                  <option value="client">Client</option>
+                  <option selected value="client">
+                    Client
+                  </option>
                 </Form.Control>
               </Form.Group>
             </div>
