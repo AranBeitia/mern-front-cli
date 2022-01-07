@@ -14,7 +14,8 @@ function CardProduct({
   price,
   stock,
   id,
-  images,
+  image,
+  gallery,
 }) {
   const [modalShow, setModalShow] = React.useState(false)
   const handleDelete = (id) => {
@@ -44,11 +45,11 @@ function CardProduct({
         className={!isEditable ? 'hover' : ''}
         onClick={() => setModalShow(true)}
       >
-        {images ? (
+        {image ? (
           <Card.Img
             variant="top"
             className="cover"
-            src={`http://localhost:4000/${images}`}
+            src={`http://localhost:4000/${image}`}
           />
         ) : (
           <Card.Img className="contain" variant="top" src={noImage} />
@@ -73,17 +74,22 @@ function CardProduct({
               Delete
             </Button>
           </Card.Footer>
-        ) : null}
+        ) : (
+          <Button className="btn btn-dark">See more</Button>
+        )}
       </Card>
-      <TheModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        title={title}
-        description={description}
-        price={price}
-        stock={stock}
-        images={images}
-      />
+      {!isEditable ? (
+        <TheModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          title={title}
+          description={description}
+          price={price}
+          stock={stock}
+          image={image}
+          gallery={gallery}
+        />
+      ) : null}
     </>
   )
 }

@@ -42,6 +42,12 @@ ul {
 .cover {
 	max-height: 13rem;
 	object-fit: cover;
+
+	&.--highlight {
+		max-height: 16rem;
+		border: 2px solid grey;
+		border-radius: 5px;
+	}
 }
 
 .contain {

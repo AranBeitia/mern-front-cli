@@ -32,7 +32,8 @@ function CardProductFeed({ isEditable }) {
           <CardProduct
             key={product._id}
             id={product._id}
-            images={product.images}
+            image={product.mainImage}
+            gallery={product.gallery}
             title={product.title}
             description={product.description}
             price={product.price}

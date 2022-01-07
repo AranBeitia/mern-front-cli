@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button'
 import clientAxios from '../../../../config/axios'
 import Swal from 'sweetalert2'
 import { useUsers } from '../../../../context/UsersContext'
+import { Link } from 'react-router-dom'
 
 function CardEmployee(props) {
   const { changeUsers } = useUsers()
@@ -18,10 +19,8 @@ function CardEmployee(props) {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(id)
         clientAxios.delete(`/users/${id}`).then((res) => {
           if (res.status === 200) {
-            console.log('CHANGED')
             changeUsers()
             Swal.fire('Deleted!', res.data.message, 'success')
           }
@@ -37,7 +36,9 @@ function CardEmployee(props) {
           <Card.Text>{props.email}</Card.Text>
         </Card.Body>
         <Card.Footer className="d-flex justify-content-between">
-          <Button variant="success">Edit</Button>
+          <Link to={`/employees/${props.id}`}>
+            <Button variant="success">Edit</Button>
+          </Link>
           <Button variant="danger" onClick={() => handleDelete(props.id)}>
             Delete
           </Button>
