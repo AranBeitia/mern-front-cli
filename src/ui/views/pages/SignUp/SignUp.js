@@ -44,7 +44,7 @@ function SignUp() {
           }
         }
       )
-      const { setIsLogged } = useAuth()
+      setIsLogged(true)
       history('/')
     } catch (error) {
       console.log(error)
