@@ -74,11 +74,7 @@ function ProductEdit() {
   }
 
   const handleFile = (e) => {
-    console.log(e.target.files[0])
-    setFile({
-      ...file,
-      file: e.target.files[0],
-    })
+    setFile(e.target.files[0])
   }
 
   return (
