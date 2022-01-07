@@ -5,11 +5,9 @@ import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/AuthContext.js'
-import { useState } from 'react'
 
 function Header({ title }) {
   console.log(title)
-  const history = useNavigate()
   const { currentUser, isLogged, setIsLogged, logout } = useAuth()
   function handleLogout() {
     logout()
