@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import Header from '../../components/Layout/Header'
 
 function SignUp() {
   const fullnameRef = useRef()
@@ -67,6 +68,7 @@ function SignUp() {
   }
   return (
     <>
+      <Header />
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: '100vh' }}
