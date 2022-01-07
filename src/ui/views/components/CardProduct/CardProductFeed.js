@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import clientAxios from '../../../../config/axios'
-
 import CardProduct from './CardProduct'
 import Spinner from '../Spinner'
 
@@ -39,6 +38,7 @@ function CardProductFeed({ isEditable }) {
             price={product.price}
             stock={product.stock}
             isEditable={isEditable}
+            onClick={() => setModalShow(true)}
           />
         ))
       ) : (

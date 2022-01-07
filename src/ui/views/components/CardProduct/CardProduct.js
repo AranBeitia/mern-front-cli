@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import noImage from '../../../assets/img/no-image.jpeg'
-// import TheModal from '../TheModal'
+import TheModal from '../TheModal'
 
 function CardProduct({
   isEditable,
@@ -16,6 +16,7 @@ function CardProduct({
   id,
   images,
 }) {
+  const [modalShow, setModalShow] = React.useState(false)
   const handleDelete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -38,41 +39,52 @@ function CardProduct({
   }
 
   return (
-    <Card
-      className={!isEditable ? 'hover' : ''}
-      // onClick={() => setModalShow(true)}
-    >
-      {images ? (
-        <Card.Img
-          variant="top"
-          className="cover"
-          src={`http://localhost:4000/${images}`}
-        />
-      ) : (
-        <Card.Img className="contain" variant="top" src={noImage} />
-      )}
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>
-          {description.length > 150
-            ? `${description.slice(0, 150)}...`
-            : description}
-        </Card.Text>
-        <small className="text-muted">{price}€ - </small>
-        <small className="text-muted">{stock} units</small>
-      </Card.Body>
+    <>
+      <Card
+        className={!isEditable ? 'hover' : ''}
+        onClick={() => setModalShow(true)}
+      >
+        {images ? (
+          <Card.Img
+            variant="top"
+            className="cover"
+            src={`http://localhost:4000/${images}`}
+          />
+        ) : (
+          <Card.Img className="contain" variant="top" src={noImage} />
+        )}
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          <Card.Text>
+            {description.length > 150
+              ? `${description.slice(0, 150)}...`
+              : description}
+          </Card.Text>
+          <small className="text-muted">{price}€ - </small>
+          <small className="text-muted">{stock} units</small>
+        </Card.Body>
 
-      {isEditable ? (
-        <Card.Footer className="d-flex justify-content-between">
-          <Link to={`/products/edit/${id}`} className="btn btn-success">
-            Edit
-          </Link>
-          <Button variant="danger" onClick={() => handleDelete(id)}>
-            Delete
-          </Button>
-        </Card.Footer>
-      ) : null}
-    </Card>
+        {isEditable ? (
+          <Card.Footer className="d-flex justify-content-between">
+            <Link to={`/products/edit/${id}`} className="btn btn-success">
+              Edit
+            </Link>
+            <Button variant="danger" onClick={() => handleDelete(id)}>
+              Delete
+            </Button>
+          </Card.Footer>
+        ) : null}
+      </Card>
+      <TheModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        title={title}
+        description={description}
+        price={price}
+        stock={stock}
+        images={images}
+      />
+    </>
   )
 }
 
