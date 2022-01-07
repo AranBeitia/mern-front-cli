@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
+import ImageGallery from '../ImageGallery'
 
 function TheModal(props) {
-  console.log(props)
+  const [images, setImages] = useState(null)
+
+  useEffect(() => {
+    if (props.gallery) {
+      setImages(
+        props.gallery.map((image) => ({
+          original: `http://localhost:4000/${image}`,
+          thumbnail: `http://localhost:4000/${image}`,
+        }))
+      )
+    }
+  }, [])
+
   return (
     <Modal
       {...props}
@@ -11,23 +24,36 @@ function TheModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {props.title}
-        </Modal.Title>
-      </Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
-        <img
-          className="cover"
-          src={`http://localhost:4000/${props.images}`}
-          alt={props.images}
-        />
-        <p>{props.description}</p>
-        <span>{props.price}€ - </span>
-        <span>{props.stock}</span>
+        <h2>{props.title}</h2>
+        <div className="d-flex my-3">
+          <img
+            className="[ cover --highlight ]"
+            src={`http://localhost:4000/${props.image}`}
+            alt={props.image}
+          />
+          <div className="d-flex flex-column mx-3">
+            <p>{props.description}</p>
+            <p>
+              <span className="fw-bold">Price:</span> {props.price}€
+            </p>
+            <p>
+              <span className="fw-bold">Stock: </span>
+              {props.stock} units
+            </p>
+          </div>
+        </div>
+
+        <ImageGallery gallery={props.gallery} lazyLoad="true" />
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button variant="link" onClick={props.onHide}>
+          Close
+        </Button>
+        <Button variant="success" onClick={props.onHide}>
+          Purchase
+        </Button>
       </Modal.Footer>
     </Modal>
   )
