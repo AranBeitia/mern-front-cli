@@ -6,10 +6,12 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Spinner from '../Spinner'
 import noImage from '../../../assets/img/no-image.jpeg'
+// import TheModal from '../TheModal'
 
 function CardProduct({ isEditable }) {
   const [products, setProducts] = useState([])
   const [hasChanged, setHasChanged] = useState(false)
+  // const [modalShow, setModalShow] = useState(false)
 
   const consultAPI = async () => {
     const consultProducts = await clientAxios.get('/products')
@@ -54,40 +56,54 @@ function CardProduct({ isEditable }) {
     <>
       {products ? (
         products.map((product) => (
-          <Card key={product._id}>
-            {product.images ? (
-              <Card.Img
-                variant="top"
-                src={`http://localhost:4000/${product.images}`}
-              />
-            ) : (
-              <Card.Img variant="top" src={noImage} />
-            )}
+          <div key={product._id}>
+            <Card
+              className={!isEditable ? 'hover' : ''}
+              // onClick={() => setModalShow(true)}
+            >
+              {product.images ? (
+                <Card.Img
+                  variant="top"
+                  className="cover"
+                  src={`http://localhost:4000/${product.images}`}
+                />
+              ) : (
+                <Card.Img className="contain" variant="top" src={noImage} />
+              )}
+              <Card.Body>
+                <Card.Title>{product.title}</Card.Title>
+                <Card.Text>
+                  {product.description.length > 150
+                    ? `${product.description.slice(0, 150)}...`
+                    : product.description}
+                </Card.Text>
+                <small className="text-muted">{product.price}€ - </small>
+                <small className="text-muted">{product.stock} units</small>
+              </Card.Body>
 
-            <Card.Body>
-              <Card.Title>{product.title}</Card.Title>
-              <Card.Text>{product.description}</Card.Text>
-              <small className="text-muted">{product.price}€ - </small>
-              <small className="text-muted">{product.stock} units</small>
-            </Card.Body>
-
-            {isEditable ? (
-              <Card.Footer className="d-flex justify-content-between">
-                <Link
-                  to={`/products/edit/${product._id}`}
-                  className="btn btn-success"
-                >
-                  Edit
-                </Link>
-                <Button
-                  variant="danger"
-                  onClick={() => handleDelete(product._id)}
-                >
-                  Delete
-                </Button>
-              </Card.Footer>
-            ) : null}
-          </Card>
+              {isEditable ? (
+                <Card.Footer className="d-flex justify-content-between">
+                  <Link
+                    to={`/products/edit/${product._id}`}
+                    className="btn btn-success"
+                  >
+                    Edit
+                  </Link>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(product._id)}
+                  >
+                    Delete
+                  </Button>
+                </Card.Footer>
+              ) : null}
+            </Card>
+            {/* <TheModal
+              title={product.title}
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+            /> */}
+          </div>
         ))
       ) : (
         <p>No products</p>
