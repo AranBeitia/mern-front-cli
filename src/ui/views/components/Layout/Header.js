@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../../../context/AuthContext.js'
 
 function Header({ title }) {
-  console.log(title)
   const { currentUser } = useAuth()
   return (
     <Navbar bg="dark" variant="dark">

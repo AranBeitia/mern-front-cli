@@ -37,7 +37,6 @@ function SignUp() {
       createUserWithEmailAndPassword(getAuth(), email, password).then(
         (credentials) => {
           if (credentials) {
-            console.log(credentials)
             signUpUser(credentials._tokenResponse.idToken)
           }
         }
@@ -63,7 +62,6 @@ function SignUp() {
         },
         body: JSON.stringify(newUser),
       })
-      console.log(signUpResponse)
     }
   }
   return (

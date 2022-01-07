@@ -12,6 +12,7 @@ import Employee from './ui/views/pages/EmployeeCrud'
 import Client from './ui/views/pages/ClientCrud'
 import SignUp from './ui/views/pages/SignUp'
 import { UsersContextProvider } from './context/UsersContext'
+import EmployeeNew from './ui/views/pages/EmployeeCrud/EmployeeNew'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/products/edit/:id" element={<ProductEdit />} />
 
           <Route path="/employees" element={<Employee />} />
+          <Route path="/employees/new" element={<EmployeeNew />} />
           <Route path="/clients" element={<Client />} />
         </Routes>
       </UsersContextProvider>

@@ -18,10 +18,8 @@ function CardEmployee(props) {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(id)
         clientAxios.delete(`/users/${id}`).then((res) => {
           if (res.status === 200) {
-            console.log('CHANGED')
             changeUsers()
             Swal.fire('Deleted!', res.data.message, 'success')
           }
