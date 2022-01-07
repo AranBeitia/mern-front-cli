@@ -1,34 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import clientAxios from '../../../../config/axios'
 import Swal from 'sweetalert2'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import Spinner from '../Spinner'
 import noImage from '../../../assets/img/no-image.jpeg'
 // import TheModal from '../TheModal'
 
-function CardProduct({ isEditable }) {
-  const [products, setProducts] = useState([])
-  const [hasChanged, setHasChanged] = useState(false)
-  // const [modalShow, setModalShow] = useState(false)
-
-  const consultAPI = async () => {
-    const consultProducts = await clientAxios.get('/products')
-    setProducts(consultProducts.data.data)
-  }
-
-  useEffect(() => {
-    consultAPI()
-  }, [])
-
-  useEffect(() => {
-    if (hasChanged) {
-      consultAPI()
-      setHasChanged(false)
-    }
-  }, [hasChanged])
-
+function CardProduct({
+  isEditable,
+  title,
+  description,
+  price,
+  stock,
+  id,
+  images,
+}) {
   const handleDelete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -50,65 +37,42 @@ function CardProduct({ isEditable }) {
     })
   }
 
-  if (!products.length) return <Spinner />
-
   return (
-    <>
-      {products ? (
-        products.map((product) => (
-          <div key={product._id}>
-            <Card
-              className={!isEditable ? 'hover' : ''}
-              // onClick={() => setModalShow(true)}
-            >
-              {product.images ? (
-                <Card.Img
-                  variant="top"
-                  className="cover"
-                  src={`http://localhost:4000/${product.images}`}
-                />
-              ) : (
-                <Card.Img className="contain" variant="top" src={noImage} />
-              )}
-              <Card.Body>
-                <Card.Title>{product.title}</Card.Title>
-                <Card.Text>
-                  {product.description.length > 150
-                    ? `${product.description.slice(0, 150)}...`
-                    : product.description}
-                </Card.Text>
-                <small className="text-muted">{product.price}€ - </small>
-                <small className="text-muted">{product.stock} units</small>
-              </Card.Body>
-
-              {isEditable ? (
-                <Card.Footer className="d-flex justify-content-between">
-                  <Link
-                    to={`/products/edit/${product._id}`}
-                    className="btn btn-success"
-                  >
-                    Edit
-                  </Link>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDelete(product._id)}
-                  >
-                    Delete
-                  </Button>
-                </Card.Footer>
-              ) : null}
-            </Card>
-            {/* <TheModal
-              title={product.title}
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-            /> */}
-          </div>
-        ))
+    <Card
+      className={!isEditable ? 'hover' : ''}
+      // onClick={() => setModalShow(true)}
+    >
+      {images ? (
+        <Card.Img
+          variant="top"
+          className="cover"
+          src={`http://localhost:4000/${images}`}
+        />
       ) : (
-        <p>No products</p>
+        <Card.Img className="contain" variant="top" src={noImage} />
       )}
-    </>
+      <Card.Body>
+        <Card.Title>{title}</Card.Title>
+        <Card.Text>
+          {description.length > 150
+            ? `${description.slice(0, 150)}...`
+            : description}
+        </Card.Text>
+        <small className="text-muted">{price}€ - </small>
+        <small className="text-muted">{stock} units</small>
+      </Card.Body>
+
+      {isEditable ? (
+        <Card.Footer className="d-flex justify-content-between">
+          <Link to={`/products/edit/${id}`} className="btn btn-success">
+            Edit
+          </Link>
+          <Button variant="danger" onClick={() => handleDelete(id)}>
+            Delete
+          </Button>
+        </Card.Footer>
+      ) : null}
+    </Card>
   )
 }
 

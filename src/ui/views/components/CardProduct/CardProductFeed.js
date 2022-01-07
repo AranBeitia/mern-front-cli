@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import clientAxios from '../../../../config/axios'
 
 import CardProduct from './CardProduct'
+import Spinner from '../Spinner'
 
 function CardProductFeed({ isEditable }) {
   const [products, setProducts] = useState([])
@@ -23,9 +24,26 @@ function CardProductFeed({ isEditable }) {
     }
   }, [hasChanged])
 
+  if (!products.length) return <Spinner />
+
   return (
     <div className="grid-wrapper">
-      <CardProduct isEditable={isEditable} />
+      {products ? (
+        products.map((product) => (
+          <CardProduct
+            key={product._id}
+            id={product._id}
+            images={product.images}
+            title={product.title}
+            description={product.description}
+            price={product.price}
+            stock={product.stock}
+            isEditable={isEditable}
+          />
+        ))
+      ) : (
+        <p>No products</p>
+      )}
     </div>
   )
 }
