@@ -1,32 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import clientAxios from '../../../../config/axios'
+import React from 'react'
 import CardProduct from './CardProduct'
 import Spinner from '../Spinner'
+import { useProduct } from '../../../../context/ProductContext'
 
 function CardProductFeed({ isEditable }) {
-  const [products, setProducts] = useState([])
-  const [hasChanged, setHasChanged] = useState(false)
-
-  const consultAPI = async () => {
-    const consultProducts = await clientAxios.get('/products')
-    setProducts(consultProducts.data.data)
-  }
-
-  useEffect(() => {
-    consultAPI()
-  }, [])
-
-  useEffect(() => {
-    if (hasChanged) {
-      consultAPI()
-      setHasChanged(false)
-    }
-  }, [hasChanged])
-
-  if (!products.length) return <Spinner />
+  const { products, isLoading } = useProduct()
 
   return (
     <div className="grid-wrapper">
+      {isLoading && <Spinner />}
       {products ? (
         products.map((product) => (
           <CardProduct
