@@ -55,7 +55,6 @@ function SignUp() {
         email: email,
         password: password,
       }
-
       const signUpResponse = await fetch('http://localhost:4000/users/signup', {
         method: 'POST',
         headers: {
@@ -64,6 +63,7 @@ function SignUp() {
         },
         body: JSON.stringify(newUser),
       })
+      console.log(signUpResponse)
     }
   }
   return (

@@ -9,9 +9,11 @@ import { useAuth } from '../../../../context/AuthContext.js'
 function Header({ title }) {
   console.log(title)
   const { currentUser, isLogged, setIsLogged, logout } = useAuth()
+  const history = useNavigate()
   function handleLogout() {
     logout()
     setIsLogged(false)
+    history('/')
   }
   return (
     <>
