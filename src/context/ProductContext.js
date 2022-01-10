@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useState,
+} from 'react'
 import clientAxios from '../config/axios'
 
 const ProductContext = createContext()
@@ -31,7 +37,8 @@ export const reducer = (state, action) => {
 
 function ProductProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { products, hasChanged } = state
+  const { products } = state
+  const [hasChanged, setHasChanged] = useState()
 
   const consultAPI = async () => {
     const consultProducts = await clientAxios.get('/products')
