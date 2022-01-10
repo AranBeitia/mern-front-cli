@@ -9,10 +9,7 @@ function AdminNav() {
           Products
         </Link>
         <Link to={'/employees'} className="ico-employee">
-          Employees
-        </Link>
-        <Link to={'/clients'} className="ico-client">
-          Clients
+          Users
         </Link>
       </nav>
     </aside>

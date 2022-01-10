@@ -11,7 +11,7 @@ import Product from './ui/views/pages/Product'
 import ProductNew from './ui/views/pages/Product/ProductNew'
 import ProductEdit from './ui/views/pages/Product/ProductEdit'
 import Employee from './ui/views/pages/EmployeeCrud'
-import Client from './ui/views/pages/ClientCrud'
+// import Client from './ui/views/pages/ClientCrud'
 import SignUp from './ui/views/pages/SignUp'
 import PrivateRouter from './ui/views/pages/Private/PrivateRouter'
 import EmployeeNew from './ui/views/pages/EmployeeCrud/EmployeeNew'
@@ -36,7 +36,7 @@ function App() {
             <Route path="/employees/new" element={<EmployeeNew />} />
             <Route path="/employees/:id" element={<EmployeeEdit />} />
 
-            <Route path="/clients" element={<Client />} />
+            {/* <Route path="/clients" element={<Client />} /> */}
           </Routes>
         </ProductProvider>
       </UsersContextProvider>
