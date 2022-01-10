@@ -7,11 +7,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/AuthContext.js'
 
 function Header({ title }) {
-  const { currentUser, isLogged, setIsLogged, logout } = useAuth()
+  const { currentUser, setCurrentUser, logout } = useAuth()
   const history = useNavigate()
   function handleLogout() {
     logout()
-    setIsLogged(false)
+    setCurrentUser('')
     history('/')
   }
   return (
@@ -25,10 +25,10 @@ function Header({ title }) {
           </Navbar.Brand>
           <Navbar.Text>{title}</Navbar.Text>
           {currentUser ? (
-            <Navbar.Text>Welcome {currentUser.email}</Navbar.Text>
+            <Navbar.Text>Welcome {currentUser}</Navbar.Text>
           ) : null}
           <div as={Row}>
-            {!isLogged ? (
+            {!currentUser ? (
               <div>
                 <Navbar.Text as={Col}>
                   <Link to={'/login'} className="link">

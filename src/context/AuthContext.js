@@ -9,14 +9,14 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState('')
   const [loading, setLoading] = useState(true)
   const [isLogged, setIsLogged] = useState(false)
   const [error, setError] = useState('')
 
   useEffect(() => {
     const unsuscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user)
+      //setCurrentUser(user)
       setLoading(false)
     })
     return unsuscribe
@@ -32,6 +32,7 @@ export function AuthProvider({ children }) {
     }
   }
   const value = {
+    setCurrentUser,
     currentUser,
     isLogged,
     setIsLogged,

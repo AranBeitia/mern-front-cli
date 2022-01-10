@@ -18,7 +18,7 @@ function Login() {
   const [auth, setAuth] = useState()
   const history = useNavigate()
   const [user, setUser] = useState('test')
-  const { setIsLogged } = useAuth()
+  const { currentUser, setCurrentUser, setIsLogged } = useAuth()
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -43,7 +43,7 @@ function Login() {
             setError('User incorrect or not found, please try again or SignUp')
             break
           default:
-            setError('Server error, try to connect')
+            setError(err.message)
             break
         }
       })
@@ -60,14 +60,14 @@ function Login() {
         .then((data) => data)
 
       setUser(loginResponse.user.email)
+      setCurrentUser(loginResponse.user.email)
       setIsLogged(true)
-      history('/')
+      if(auth){history('/')}
     }
   }
   return (
     <>
       <Header title="Login" />
-      {auth && user ? <div>{user} is logged</div> : <div>Not Logged</div>}
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: '100vh' }}

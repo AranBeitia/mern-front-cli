@@ -12,7 +12,7 @@ import ProductNew from './ui/views/pages/Product/ProductNew'
 import ProductEdit from './ui/views/pages/Product/ProductEdit'
 import Employee from './ui/views/pages/EmployeeCrud'
 import SignUp from './ui/views/pages/SignUp'
-import PrivateRouter from './ui/views/pages/Private/PrivateRouter'
+//import PrivateRouter from './ui/views/pages/Private/PrivateRouter'
 import EmployeeNew from './ui/views/pages/EmployeeCrud/EmployeeNew'
 import EmployeeEdit from './ui/views/pages/EmployeeCrud/EmployeeEdit'
 
@@ -25,9 +25,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/admin" element={<PrivateRouter />} />
+            <Route path="/admin" element={<Product />} />
 
-            <Route path="/products" element={<Product />} />
+            {/*<Route path="/products" element={<Product />} />*/}
             <Route path="/products/new" element={<ProductNew />} />
             <Route path="/products/edit/:id" element={<ProductEdit />} />
 
