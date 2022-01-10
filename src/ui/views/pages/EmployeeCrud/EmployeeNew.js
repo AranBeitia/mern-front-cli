@@ -28,7 +28,6 @@ export default function EmployeeNew() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(user)
 
     const formData = new FormData()
     formData.append('fullName', user.fullName)

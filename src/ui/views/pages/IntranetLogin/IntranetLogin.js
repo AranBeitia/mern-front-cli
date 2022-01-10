@@ -49,7 +49,6 @@ function IntranetLogin() {
       })
 
     const fetchData = async (token) => {
-      console.log(token)
       const loginResponse = await fetch('http://localhost:4000/users/login', {
         method: 'GET',
         headers: {
@@ -60,7 +59,6 @@ function IntranetLogin() {
         .then((response) => response.json())
         .then((data) => data)
 
-      console.log(loginResponse)
       setUser(loginResponse.user.email)
       setIsLogged(true)
       history('/admin')

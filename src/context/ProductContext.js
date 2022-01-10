@@ -41,7 +41,6 @@ function ProductProvider({ children }) {
       dispatch({ type: 'FETCH_REQUEST' })
     }
   }
-  console.log(products)
 
   useEffect(() => {
     consultAPI()

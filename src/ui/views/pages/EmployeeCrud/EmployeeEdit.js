@@ -13,7 +13,6 @@ export default function EmployeeEdit() {
 
   useEffect(() => {
     fetchUser()
-    console.log(user)
   }, [])
 
   const fetchUser = async () => {
@@ -37,14 +36,11 @@ export default function EmployeeEdit() {
     formData.append('password', user.password)
     formData.append('role', user.role)
     try {
-      console.log(formData)
-      console.log(user)
       const res = await clientAxios.patch(`/users/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
-      console.log(res)
       if (res.status === 200) {
         Swal.fire('Product added correctly', res.data.message, 'success')
         navigate('/employees')

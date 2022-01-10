@@ -7,7 +7,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/AuthContext.js'
 
 function Header({ title }) {
-  console.log(title)
   const { currentUser, isLogged, setIsLogged, logout } = useAuth()
   const history = useNavigate()
   function handleLogout() {

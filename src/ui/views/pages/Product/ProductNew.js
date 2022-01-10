@@ -32,12 +32,13 @@ function ProductNew() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     const formData = new FormData()
     formData.append('title', product.title)
     formData.append('description', product.description)
     formData.append('price', product.price)
     formData.append('stock', product.stock)
-    formData.append('images', file)
+    formData.append('mainImage', file)
 
     try {
       const res = await clientAxios.post('/products', formData, {
@@ -112,7 +113,7 @@ function ProductNew() {
             <Form.Group className="mb-3" id="images">
               <Form.Control
                 type="file"
-                name="images"
+                name="mainImage"
                 label="Upload image"
                 onChange={handleFile}
               />

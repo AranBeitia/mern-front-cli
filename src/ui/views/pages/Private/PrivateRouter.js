@@ -8,7 +8,6 @@ export default function PrivateRouter({ children, ...rest }) {
   let authorized = false
   if (currentUser) {
     authorized = currentUser.email.includes('luna')
-    console.log(currentUser)
   } else {
     authorized = false
   }
