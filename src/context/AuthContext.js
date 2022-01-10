@@ -9,7 +9,6 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const history = useNavigate()
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
   const [isLogged, setIsLogged] = useState(false)
