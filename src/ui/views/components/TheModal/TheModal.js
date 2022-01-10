@@ -42,17 +42,15 @@ function TheModal(props) {
               <span className="fw-bold">Stock: </span>
               {props.stock} units
             </p>
+            <Button variant="success">Purchase</Button>
           </div>
         </div>
 
         <ImageGallery gallery={props.gallery} lazyLoad="true" />
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="link" onClick={props.onHide}>
+        <Button variant="outline-dark" onClick={props.onHide}>
           Close
-        </Button>
-        <Button variant="success" onClick={props.onHide}>
-          Purchase
         </Button>
       </Modal.Footer>
     </Modal>

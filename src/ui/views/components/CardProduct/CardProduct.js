@@ -58,11 +58,13 @@ function CardProduct({
           <Card.Title>{title}</Card.Title>
           <Card.Text>
             {description.length > 150
-              ? `${description.slice(0, 150)}...`
+              ? `${description.slice(0, 150)}... see more`
               : description}
           </Card.Text>
-          <small className="text-muted">{price}€ - </small>
-          <small className="text-muted">{stock} units</small>
+          <div>
+            <small className="text-muted">{price}€ - </small>
+            <small className="text-muted">{stock} units</small>
+          </div>
         </Card.Body>
 
         {isEditable ? (
@@ -75,7 +77,7 @@ function CardProduct({
             </Button>
           </Card.Footer>
         ) : (
-          <Button className="btn btn-dark">See more</Button>
+          <Button variant="success">Purchase</Button>
         )}
       </Card>
       {!isEditable ? (
