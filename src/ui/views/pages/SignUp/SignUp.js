@@ -10,7 +10,7 @@ import Header from '../../components/Layout/Header'
 import { useAuth } from '../../../../context/AuthContext'
 
 function SignUp() {
-  const fullnameRef = useRef()
+  const fullNameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -22,7 +22,7 @@ function SignUp() {
   async function handleSubmit(e) {
     e.preventDefault()
     const email = emailRef.current.value
-    const fullname = fullnameRef.current.value
+    const fullName = fullNameRef.current.value
     const password = passwordRef.current.value
     const passwordConfirm = passwordConfirmRef.current.value
 
@@ -44,14 +44,19 @@ function SignUp() {
         }
       )
       setIsLogged(true)
-      history('/')
+
+      if (resume) {
+        history('/resume')
+      } else {
+        history('/')
+      }
     } catch (error) {
       console.log(error)
     }
 
     async function signUpUser(token) {
       const newUser = {
-        fullname: fullname,
+        fullName: fullName,
         email: email,
         password: password,
       }
@@ -78,11 +83,11 @@ function SignUp() {
               <h2 className="text-center mb-4">Sign Up</h2>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit}>
-                <Form.Group id="fullname">
-                  <Form.Label>Fullname</Form.Label>
+                <Form.Group id="fullName">
+                  <Form.Label>Full name</Form.Label>
                   <Form.Control
                     type="text"
-                    ref={fullnameRef}
+                    ref={fullNameRef}
                     required
                   ></Form.Control>
                 </Form.Group>

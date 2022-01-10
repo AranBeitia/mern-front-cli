@@ -9,6 +9,7 @@ import Header from '../../components/Layout/Header'
 import { auth } from '../../../../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useAuth } from '../../../../context/AuthContext'
+import { useCart } from '../../../../context/CartContext'
 
 function Login() {
   const emailRef = useRef()
@@ -19,6 +20,7 @@ function Login() {
   const history = useNavigate()
   const [user, setUser] = useState('test')
   const { setIsLogged } = useAuth()
+  const { resume } = useCart()
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -61,7 +63,11 @@ function Login() {
 
       setUser(loginResponse.user.email)
       setIsLogged(true)
-      history('/')
+      if (resume) {
+        history('/resume')
+      } else {
+        history('/')
+      }
     }
   }
   return (

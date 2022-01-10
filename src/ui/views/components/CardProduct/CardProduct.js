@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import noImage from '../../../assets/img/no-image.jpeg'
 import TheModal from '../TheModal'
+import { useCart } from '../../../../context/CartContext'
 
 function CardProduct({
   isEditable,
@@ -18,6 +19,7 @@ function CardProduct({
   gallery,
 }) {
   const [modalShow, setModalShow] = React.useState(false)
+  const { products, addToCart } = useCart()
   const handleDelete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -77,7 +79,12 @@ function CardProduct({
             </Button>
           </Card.Footer>
         ) : (
-          <Button variant="success">Purchase</Button>
+          <Button
+            variant="success"
+            onClick={() => addToCart([title, ...products])}
+          >
+            Purchase
+          </Button>
         )}
       </Card>
       {!isEditable ? (
