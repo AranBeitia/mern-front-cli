@@ -46,10 +46,7 @@ function CardProduct({
 
   return (
     <>
-      <Card
-        className={!isEditable ? 'hover' : ''}
-        onClick={() => setModalShow(true)}
-      >
+      <Card>
         {image ? (
           <Card.Img
             variant="top"
@@ -63,7 +60,7 @@ function CardProduct({
           <Card.Title>{title}</Card.Title>
           <Card.Text>
             {description.length > 150
-              ? `${description.slice(0, 150)}... see more`
+              ? `${description.slice(0, 150)}...`
               : description}
           </Card.Text>
           <div>
@@ -82,12 +79,17 @@ function CardProduct({
             </Button>
           </Card.Footer>
         ) : (
-          <Button
-            variant="success"
-            onClick={() => addToCart([title, ...products])}
-          >
-            Purchase
-          </Button>
+          <div className="d-flex justify-content-between p-3">
+            <Button variant="dark" onClick={() => setModalShow(true)}>
+              See more
+            </Button>
+            <Button
+              variant="success"
+              onClick={() => addToCart([title, ...products])}
+            >
+              Purchase
+            </Button>
+          </div>
         )}
       </Card>
       {!isEditable ? (
