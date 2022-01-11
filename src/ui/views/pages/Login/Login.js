@@ -17,8 +17,7 @@ function Login() {
   const [loading, setLoading] = useState(false)
   const [auth, setAuth] = useState()
   const history = useNavigate()
-  const [user, setUser] = useState('test')
-  const { currentUser, setCurrentUser, setIsLogged } = useAuth()
+  const { setCurrentUser, setIsLogged, role, setRole } = useAuth()
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -43,7 +42,7 @@ function Login() {
             setError('User incorrect or not found, please try again or SignUp')
             break
           default:
-            setError(err.message)
+            setError("Something went wrong, please try again")
             break
         }
       })
@@ -59,10 +58,15 @@ function Login() {
         .then((response) => response.json())
         .then((data) => data)
 
-      setUser(loginResponse.user.email)
-      setCurrentUser(loginResponse.user.email)
+      setRole(loginResponse.user.role)
+      console.log(role);
+      setCurrentUser(loginResponse.user)
       setIsLogged(true)
-      if(auth){history('/')}
+      if (role!== 'client') {
+        history('/admin')
+      }else{
+        history('/')
+      }
     }
   }
   return (

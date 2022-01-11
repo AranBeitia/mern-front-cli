@@ -13,6 +13,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
   const [isLogged, setIsLogged] = useState(false)
   const [error, setError] = useState('')
+  const [role, setRole] = useState('client')
 
   useEffect(() => {
     const unsuscribe = auth.onAuthStateChanged((user) => {
@@ -37,6 +38,8 @@ export function AuthProvider({ children }) {
     isLogged,
     setIsLogged,
     logout,
+    role,
+    setRole,
   }
 
   return (

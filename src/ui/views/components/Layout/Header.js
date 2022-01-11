@@ -25,7 +25,7 @@ function Header({ title }) {
           </Navbar.Brand>
           <Navbar.Text>{title}</Navbar.Text>
           {currentUser ? (
-            <Navbar.Text>Welcome {currentUser}</Navbar.Text>
+            <Navbar.Text>Welcome {currentUser.email}</Navbar.Text>
           ) : null}
           <div as={Row}>
             {!currentUser ? (

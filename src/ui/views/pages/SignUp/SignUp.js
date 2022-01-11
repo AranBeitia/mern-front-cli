@@ -16,13 +16,13 @@ function SignUp() {
   const passwordConfirmRef = useRef()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { setIsLogged } = useAuth()
+  const { setIsLogged, currentUser, setCurrentUser } = useAuth()
   const history = useNavigate()
 
   async function handleSubmit(e) {
     e.preventDefault()
     const email = emailRef.current.value
-    const fullname = fullnameRef.current.value
+    const fullName = fullnameRef.current.value
     const password = passwordRef.current.value
     const passwordConfirm = passwordConfirmRef.current.value
 
@@ -40,30 +40,31 @@ function SignUp() {
         (credentials) => {
           if (credentials) {
             signUpUser(credentials._tokenResponse.idToken)
+            setCurrentUser(credentials.user);
           }
         }
-      )
-      setIsLogged(true)
-      history('/')
-    } catch (error) {
-      console.log(error)
-    }
-
-    async function signUpUser(token) {
-      const newUser = {
-        fullname: fullname,
-        email: email,
-        password: password,
+        )
+        setIsLogged(true)
+        history('/')
+      } catch (error) {
+        console.log(error)
       }
-      const signUpResponse = await fetch('http://localhost:4000/users/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(newUser),
-      })
-    }
+      
+      async function signUpUser(token) {
+        const newUser = {
+          fullName: fullName,
+          email: email,
+          password: password,
+        }
+        const signUpResponse = await fetch('http://localhost:4000/users/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(newUser),
+        })
+      }
   }
   return (
     <>
