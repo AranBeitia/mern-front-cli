@@ -37,7 +37,6 @@ export const reducer = (state, action) => {
 function ProductProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { products, hasChanged } = state
-  // const [hasChanged, setHasChanged] = useState()
 
   const consultAPI = async () => {
     const consultProducts = await clientAxios.get('/products')
