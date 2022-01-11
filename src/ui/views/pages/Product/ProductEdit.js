@@ -73,9 +73,9 @@ function ProductEdit() {
     })
   }
 
-  const handleFile = (e) => {
-    setFile(e.target.files[0])
-  }
+  // const handleFile = (e) => {
+  //   setFile(e.target.files[0])
+  // }
 
   return (
     <>
@@ -133,19 +133,19 @@ function ProductEdit() {
             </div>
 
             <Form.Group className="mb-3" id="images">
-              {product.images ? (
+              {product.mainImage ? (
                 <img
-                  src={`http://localhost:4000/${product.images}`}
-                  alt={product.images}
+                  src={`http://localhost:4000/${product.mainImage}`}
+                  alt={product.mainImage}
                   width="200"
                 />
               ) : null}
-              <Form.Control
+              {/* <Form.Control
                 type="file"
                 name="images"
                 label="Upload image"
                 onChange={handleFile}
-              />
+              /> */}
             </Form.Group>
 
             <Button variant="info" type="submit">
