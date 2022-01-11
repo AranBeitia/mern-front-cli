@@ -40,7 +40,6 @@ function SignUp() {
         (credentials) => {
           if (credentials) {
             signUpUser(credentials._tokenResponse.idToken)
-            setCurrentUser(credentials.user);
           }
         }
         )
@@ -63,7 +62,7 @@ function SignUp() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(newUser),
-        })
+        }).then((response) => response.json()).then((res) => setCurrentUser(res.data)).catch((err) => setError(err.message))
       }
   }
   return (
