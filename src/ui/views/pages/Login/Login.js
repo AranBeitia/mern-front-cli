@@ -62,8 +62,10 @@ function Login() {
       let userRole = loginResponse.user.role
       setCurrentUser(loginResponse.user)
       setIsLogged(true)
-      if (userRole !== 'client') {
+      if (userRole === 'admin') {
         history('/admin')
+      }else if(userRole === 'employee'){
+        history('/employees')
       }else{
         history('/')
       }
