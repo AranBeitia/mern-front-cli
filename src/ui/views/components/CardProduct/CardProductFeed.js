@@ -4,7 +4,7 @@ import Spinner from '../Spinner'
 import { useProduct } from '../../../../context/ProductContext'
 
 function CardProductFeed({ isEditable }) {
-  const { products, isLoading } = useProduct()
+  const { products, isLoading, changed } = useProduct()
 
   return (
     <div className="grid-wrapper">

@@ -92,7 +92,7 @@ function CardProduct({
           </div>
         )}
       </Card>
-      {!isEditable ? (
+      {!isEditable && (
         <TheModal
           show={modalShow}
           onHide={() => setModalShow(false)}
@@ -103,7 +103,7 @@ function CardProduct({
           image={image}
           gallery={gallery}
         />
-      ) : null}
+      )}
     </>
   )
 }
