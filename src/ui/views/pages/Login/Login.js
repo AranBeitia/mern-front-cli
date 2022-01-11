@@ -9,6 +9,7 @@ import Header from '../../components/Layout/Header'
 import { auth } from '../../../../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useAuth } from '../../../../context/AuthContext'
+import { useCart } from '../../../../context/CartContext'
 
 function Login() {
   const emailRef = useRef()
@@ -18,6 +19,7 @@ function Login() {
   const [auth, setAuth] = useState()
   const history = useNavigate()
   const { setCurrentUser, setIsLogged, role, setRole } = useAuth()
+  const { resume } = useCart()
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -42,7 +44,7 @@ function Login() {
             setError('User incorrect or not found, please try again or SignUp')
             break
           default:
-            setError("Something went wrong, please try again")
+            setError('Something went wrong, please try again')
             break
         }
       })
@@ -62,11 +64,13 @@ function Login() {
       let userRole = loginResponse.user.role
       setCurrentUser(loginResponse.user)
       setIsLogged(true)
-      if (userRole === 'admin') {
+      if (resume) {
+        history('/resume')
+      } else if (userRole === 'admin') {
         history('/admin')
-      }else if(userRole === 'employee'){
+      } else if (userRole === 'employee') {
         history('/employees')
-      }else{
+      } else {
         history('/')
       }
     }

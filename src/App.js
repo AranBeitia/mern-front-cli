@@ -12,29 +12,34 @@ import ProductNew from './ui/views/pages/Product/ProductNew'
 import ProductEdit from './ui/views/pages/Product/ProductEdit'
 import Employee from './ui/views/pages/EmployeeCrud'
 import SignUp from './ui/views/pages/SignUp'
-//import PrivateRouter from './ui/views/pages/Private/PrivateRouter'
 import EmployeeNew from './ui/views/pages/EmployeeCrud/EmployeeNew'
 import EmployeeEdit from './ui/views/pages/EmployeeCrud/EmployeeEdit'
+import { CartContextProvider } from './context/CartContext'
+import CartResume from './ui/views/pages/CartResume/CartResume'
 
 function App() {
   return (
     <AuthProvider>
       <UsersContextProvider>
         <ProductProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/admin" element={<Product />} />
+          <CartContextProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/admin" element={<Product />} />
 
-            <Route path="/products" element={<Product />} />
-            <Route path="/products/new" element={<ProductNew />} />
-            <Route path="/products/edit/:id" element={<ProductEdit />} />
+              <Route path="/products" element={<Product />} />
+              <Route path="/products/new" element={<ProductNew />} />
+              <Route path="/products/edit/:id" element={<ProductEdit />} />
 
-            <Route path="/employees" element={<Employee />} />
-            <Route path="/employees/new" element={<EmployeeNew />} />
-            <Route path="/employees/:id" element={<EmployeeEdit />} />
-          </Routes>
+              <Route path="/employees" element={<Employee />} />
+              <Route path="/employees/new" element={<EmployeeNew />} />
+              <Route path="/employees/:id" element={<EmployeeEdit />} />
+
+              <Route path="/resume" element={<CartResume />} />
+            </Routes>
+          </CartContextProvider>
         </ProductProvider>
       </UsersContextProvider>
     </AuthProvider>

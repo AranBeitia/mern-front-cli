@@ -5,8 +5,10 @@ import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/AuthContext.js'
+import { useCart } from '../../../../context/CartContext.js'
 
 function Header({ title }) {
+  const { products, resumeCart } = useCart()
   const { currentUser, setCurrentUser, logout } = useAuth()
   const history = useNavigate()
   function handleLogout() {
@@ -49,6 +51,13 @@ function Header({ title }) {
               </Navbar.Text>
             )}
           </div>
+          {products.length > 0 && (
+            <Link to={'/resume'}>
+              <div className="text-primary" onClick={resumeCart}>
+                {products.length} items
+              </div>
+            </Link>
+          )}
         </Container>
       </Navbar>
     </>
