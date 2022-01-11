@@ -44,7 +44,7 @@ function ProductEdit() {
     formData.append('description', product.description)
     formData.append('price', product.price)
     formData.append('stock', product.stock)
-    formData.append('images', file)
+    formData.append('mainImage', file)
 
     try {
       const res = await clientAxios.patch(`/products/${id}`, formData, {

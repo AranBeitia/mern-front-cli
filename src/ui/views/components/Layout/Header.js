@@ -8,12 +8,12 @@ import { useAuth } from '../../../../context/AuthContext.js'
 import { useCart } from '../../../../context/CartContext.js'
 
 function Header({ title }) {
-  const { currentUser, isLogged, setIsLogged, logout } = useAuth()
   const { products, resumeCart } = useCart()
+  const { currentUser, setCurrentUser, logout } = useAuth()
   const history = useNavigate()
   function handleLogout() {
     logout()
-    setIsLogged(false)
+    setCurrentUser('')
     history('/')
   }
   return (

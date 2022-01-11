@@ -9,23 +9,15 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState()
-  const [loading, setLoading] = useState(true)
+  const [currentUser, setCurrentUser] = useState('')
   const [isLogged, setIsLogged] = useState(false)
   const [error, setError] = useState('')
-
-  useEffect(() => {
-    const unsuscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user)
-      setLoading(false)
-    })
-
-    return unsuscribe
-  }, [])
+  const [role, setRole] = useState('client')
 
   async function logout() {
     setError('')
     try {
+      setRole('client')
       await auth.signOut()
     } catch (error) {
       console.log(error)
@@ -33,15 +25,14 @@ export function AuthProvider({ children }) {
     }
   }
   const value = {
+    setCurrentUser,
     currentUser,
     isLogged,
     setIsLogged,
     logout,
+    role,
+    setRole,
   }
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

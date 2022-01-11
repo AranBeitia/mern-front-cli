@@ -15,8 +15,7 @@ function SignUp() {
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const { setIsLogged } = useAuth()
+  const { setIsLogged, currentUser, setCurrentUser } = useAuth()
   const history = useNavigate()
 
   async function handleSubmit(e) {
@@ -35,7 +34,6 @@ function SignUp() {
     }
     try {
       setError('')
-      setLoading(true)
       createUserWithEmailAndPassword(getAuth(), email, password).then(
         (credentials) => {
           if (credentials) {
@@ -44,12 +42,6 @@ function SignUp() {
         }
       )
       setIsLogged(true)
-
-      if (resume) {
-        history('/resume')
-      } else {
-        history('/')
-      }
     } catch (error) {
       console.log(error)
     }
@@ -68,6 +60,16 @@ function SignUp() {
         },
         body: JSON.stringify(newUser),
       })
+        .then((response) => response.json())
+        .then((res) => {
+          setCurrentUser(res.data)
+          if (resume) {
+            history('/resume')
+          } else {
+            history('/')
+          }
+        })
+        .catch((err) => setError(err.message))
     }
   }
   return (
@@ -115,7 +117,7 @@ function SignUp() {
                     required
                   ></Form.Control>
                 </Form.Group>
-                <Button disabled={loading} className="w-100" type="submit">
+                <Button className="w-100" type="submit">
                   Sign Up
                 </Button>
               </Form>

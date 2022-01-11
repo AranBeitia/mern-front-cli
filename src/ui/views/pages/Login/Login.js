@@ -18,11 +18,10 @@ function Login() {
   const [loading, setLoading] = useState(false)
   const [auth, setAuth] = useState()
   const history = useNavigate()
-  const [user, setUser] = useState('test')
-  const { setIsLogged } = useAuth()
+  const { setCurrentUser, setIsLogged, role, setRole } = useAuth()
   const { resume } = useCart()
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     e.stopPropagation()
 
@@ -45,7 +44,7 @@ function Login() {
             setError('User incorrect or not found, please try again or SignUp')
             break
           default:
-            setError('Server error, try to connect')
+            setError('Something went wrong, please try again')
             break
         }
       })
@@ -61,10 +60,16 @@ function Login() {
         .then((response) => response.json())
         .then((data) => data)
 
-      setUser(loginResponse.user.email)
+      await setRole(loginResponse.user.role)
+      let userRole = loginResponse.user.role
+      setCurrentUser(loginResponse.user)
       setIsLogged(true)
       if (resume) {
         history('/resume')
+      } else if (userRole === 'admin') {
+        history('/admin')
+      } else if (userRole === 'employee') {
+        history('/employees')
       } else {
         history('/')
       }
@@ -73,7 +78,6 @@ function Login() {
   return (
     <>
       <Header title="Login" />
-      {auth && user ? <div>{user} is logged</div> : <div>Not Logged</div>}
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: '100vh' }}
