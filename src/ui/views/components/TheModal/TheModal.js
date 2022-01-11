@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import ImageGallery from '../ImageGallery'
+import { useCart } from '../../../../context/CartContext'
 
 function TheModal(props) {
   const [images, setImages] = useState(null)
+  const { addToCart, products } = useCart()
 
   useEffect(() => {
     if (props.gallery) {
@@ -42,7 +44,17 @@ function TheModal(props) {
               <span className="fw-bold">Stock: </span>
               {props.stock} units
             </p>
-            <Button variant="success">Purchase</Button>
+            <Button
+              variant="success"
+              onClick={() =>
+                addToCart([
+                  { title: props.title, price: props.price, id: props.id },
+                  ...products,
+                ])
+              }
+            >
+              Purchase
+            </Button>
           </div>
         </div>
 

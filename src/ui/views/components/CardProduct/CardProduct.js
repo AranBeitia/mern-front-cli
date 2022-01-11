@@ -93,6 +93,7 @@ function CardProduct({
         <TheModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          id={id}
           title={title}
           description={description}
           price={price}
