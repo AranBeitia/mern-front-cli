@@ -10,19 +10,9 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState('')
-  //const [loading, setLoading] = useState(true)
   const [isLogged, setIsLogged] = useState(false)
   const [error, setError] = useState('')
   const [role, setRole] = useState('client')
-
-  // useEffect(() => {
-  //   const unsuscribe = auth.onAuthStateChanged((user) => {
-  //     //! 
-  //     //setCurrentUser(user)
-  //     setLoading(false)
-  //   })
-  //   return unsuscribe
-  // }, [role])
 
   async function logout() {
     setError('')
@@ -44,9 +34,5 @@ export function AuthProvider({ children }) {
     setRole,
   }
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

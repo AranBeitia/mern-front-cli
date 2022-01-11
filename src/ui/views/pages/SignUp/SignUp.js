@@ -10,7 +10,7 @@ import Header from '../../components/Layout/Header'
 import { useAuth } from '../../../../context/AuthContext'
 
 function SignUp() {
-  const fullnameRef = useRef()
+  const fullNameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -21,7 +21,7 @@ function SignUp() {
   async function handleSubmit(e) {
     e.preventDefault()
     const email = emailRef.current.value
-    const fullName = fullnameRef.current.value
+    const fullName = fullNameRef.current.value
     const password = passwordRef.current.value
     const passwordConfirm = passwordConfirmRef.current.value
 
@@ -40,28 +40,37 @@ function SignUp() {
             signUpUser(credentials._tokenResponse.idToken)
           }
         }
-        )
-        setIsLogged(true)
-        history('/')
-      } catch (error) {
-        console.log(error)
+      )
+      setIsLogged(true)
+    } catch (error) {
+      console.log(error)
+    }
+
+    async function signUpUser(token) {
+      const newUser = {
+        fullName: fullName,
+        email: email,
+        password: password,
       }
-      
-      async function signUpUser(token) {
-        const newUser = {
-          fullName: fullName,
-          email: email,
-          password: password,
-        }
-        const signUpResponse = await fetch('http://localhost:4000/users/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(newUser),
-        }).then((response) => response.json()).then((res) => setCurrentUser(res.data)).catch((err) => setError(err.message))
-      }
+      const signUpResponse = await fetch('http://localhost:4000/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newUser),
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          setCurrentUser(res.data)
+          if (resume) {
+            history('/resume')
+          } else {
+            history('/')
+          }
+        })
+        .catch((err) => setError(err.message))
+    }
   }
   return (
     <>
@@ -76,11 +85,11 @@ function SignUp() {
               <h2 className="text-center mb-4">Sign Up</h2>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit}>
-                <Form.Group id="fullname">
-                  <Form.Label>Fullname</Form.Label>
+                <Form.Group id="fullName">
+                  <Form.Label>Full name</Form.Label>
                   <Form.Control
                     type="text"
-                    ref={fullnameRef}
+                    ref={fullNameRef}
                     required
                   ></Form.Control>
                 </Form.Group>
