@@ -10,10 +10,14 @@ import Button from 'react-bootstrap/Button'
 import Swal from 'sweetalert2'
 
 import { useAuth } from '../../../../context/AuthContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 function ProductNew() {
   let navigate = useNavigate()
-  const { role } = useAuth()
+
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
+  
   const [product, setProduct] = useState({
     title: '',
     description: '',

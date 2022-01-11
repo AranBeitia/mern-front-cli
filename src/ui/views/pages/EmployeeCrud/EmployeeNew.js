@@ -8,10 +8,14 @@ import { Container, Form, Button } from 'react-bootstrap'
 import clientAxios from '../../../../config/axios'
 import { useUsers } from '../../../../context/UsersContext'
 import { useAuth } from '../../../../context/AuthContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 export default function EmployeeNew() {
   let navigate = useNavigate()
-  const { role } = useAuth()
+  
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
+  
   const { id } = useParams()
   const [user, setUser] = useState()
   const { users, loadUsers } = useUsers()

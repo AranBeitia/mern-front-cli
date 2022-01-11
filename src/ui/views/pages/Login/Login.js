@@ -10,6 +10,7 @@ import { auth } from '../../../../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useAuth } from '../../../../context/AuthContext'
 import { useCart } from '../../../../context/CartContext'
+import { getlocalStorage, postlocalStorage } from '../../../../utils/localStorage'
 
 function Login() {
   const emailRef = useRef()
@@ -18,7 +19,7 @@ function Login() {
   const [loading, setLoading] = useState(false)
   const [auth, setAuth] = useState()
   const history = useNavigate()
-  const { setCurrentUser, setIsLogged, role, setRole } = useAuth()
+  const { setIsLogged } = useAuth()
   const { resume } = useCart()
 
   async function handleSubmit(e) {
@@ -60,9 +61,11 @@ function Login() {
         .then((response) => response.json())
         .then((data) => data)
 
-      await setRole(loginResponse.user.role)
+      
       let userRole = loginResponse.user.role
-      setCurrentUser(loginResponse.user)
+      
+      postlocalStorage(loginResponse.user)
+
       setIsLogged(true)
       if (resume) {
         history('/resume')

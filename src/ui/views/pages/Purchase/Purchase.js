@@ -4,12 +4,13 @@ import Form from 'react-bootstrap/Form'
 import Header from '../../components/Layout/Header'
 import { useAuth } from '../../../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 
 
 export default function Purchase() {
     const history = useNavigate()
-    const { currentUser } = useAuth()
+    const currentUser = getlocalStorage()
     const [address, setAddress] = useState('')
     const [town, setTown] = useState('')
     const [state, setState] = useState('')

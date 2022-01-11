@@ -6,10 +6,14 @@ import Swal from 'sweetalert2'
 import { Container, Form, Button } from 'react-bootstrap'
 import clientAxios from '../../../../config/axios'
 import { useAuth } from '../../../../context/AuthContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 export default function EmployeeEdit() {
   let navigate = useNavigate()
-  const { role } = useAuth()
+  
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
+  
   const { id } = useParams()
   const [user, setUser] = useState()
 

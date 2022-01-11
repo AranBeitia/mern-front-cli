@@ -9,10 +9,12 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Swal from 'sweetalert2'
 import { useAuth } from '../../../../context/AuthContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 function ProductEdit() {
   const { id } = useParams()
-  const { role } = useAuth()
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
   let navigate = useNavigate()
   const [product, setProduct] = useState({
     title: '',

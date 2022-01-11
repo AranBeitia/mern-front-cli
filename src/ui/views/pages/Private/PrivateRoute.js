@@ -7,10 +7,15 @@ import EmployeeNew from '../EmployeeCrud/EmployeeNew'
 import EmployeeEdit from '../EmployeeCrud/EmployeeEdit'
 import ProductNew from '../Product/ProductNew'
 import ProductEdit from '../Product/ProductEdit'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 function AdminPrivateRouter({ children, ...rest }) {
-  const { role } = useAuth()
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
+
   console.log(role)
+  console.log(currentUser)
+
   if (role !== 'admin' && role !== 'employee') {
     return <Navigate to="/403" />
   }
@@ -18,7 +23,8 @@ function AdminPrivateRouter({ children, ...rest }) {
 }
 
 function ProdNewPrivateRouter({ children, ...rest }) {
-    const { role } = useAuth()
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
     if (role !== 'employee' && role !== 'admin') {
       return <Navigate to="/403" />
     }
@@ -26,7 +32,8 @@ function ProdNewPrivateRouter({ children, ...rest }) {
   }
 
   function ProdEditPrivateRouter({ children, ...rest }) {
-    const { role } = useAuth()
+    const currentUser = getlocalStorage()
+  const role = currentUser.role
     if (role !== 'employee' && role !== 'admin') {
       return <Navigate to="/403" />
     }
@@ -34,7 +41,8 @@ function ProdNewPrivateRouter({ children, ...rest }) {
   }
 
 function EmployeePrivateRouter({ children, ...rest }) {
-  const { role } = useAuth()
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
   if (role !== 'admin') {
     return <Navigate to="/403" />
   }
@@ -42,7 +50,8 @@ function EmployeePrivateRouter({ children, ...rest }) {
 }
 
 function EmployeeNewPrivateRouter({ children, ...rest }) {
-    const { role } = useAuth()
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
     if (role !== 'admin') {
       return <Navigate to="/403" />
     }
@@ -50,7 +59,8 @@ function EmployeeNewPrivateRouter({ children, ...rest }) {
   }
 
   function EmployeeEditPrivateRouter({ children, ...rest }) {
-    const { role } = useAuth()
+    const currentUser = getlocalStorage()
+  const role = currentUser.role
     if (role !== 'admin') {
       return <Navigate to="/403" />
     }
