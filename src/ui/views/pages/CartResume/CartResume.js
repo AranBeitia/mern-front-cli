@@ -25,7 +25,7 @@ export default function CartResume() {
       <div>Total: {total}€</div>
       <div>
         {isLogged ? (
-          <Link to={'/purchase'}>
+          <Link to={'/step1'}>
             <Button variant="success">Checkout</Button>
           </Link>
         ) : (
