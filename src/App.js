@@ -27,7 +27,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/admin" element={<Product />} />
 
-            {/*<Route path="/products" element={<Product />} />*/}
+            <Route path="/products" element={<Product />} />
             <Route path="/products/new" element={<ProductNew />} />
             <Route path="/products/edit/:id" element={<ProductEdit />} />
 

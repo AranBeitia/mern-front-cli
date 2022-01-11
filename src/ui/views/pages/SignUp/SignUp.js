@@ -15,7 +15,6 @@ function SignUp() {
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
   const { setIsLogged, currentUser, setCurrentUser } = useAuth()
   const history = useNavigate()
 
@@ -35,7 +34,6 @@ function SignUp() {
     }
     try {
       setError('')
-      setLoading(true)
       createUserWithEmailAndPassword(getAuth(), email, password).then(
         (credentials) => {
           if (credentials) {
@@ -110,7 +108,7 @@ function SignUp() {
                     required
                   ></Form.Control>
                 </Form.Group>
-                <Button disabled={loading} className="w-100" type="submit">
+                <Button className="w-100" type="submit">
                   Sign Up
                 </Button>
               </Form>
