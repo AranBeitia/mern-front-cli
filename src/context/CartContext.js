@@ -2,9 +2,18 @@ import { createContext, useContext, useReducer } from 'react'
 
 const CartContext = createContext()
 
+function calculateTotal(products) {
+  let totalAmount = 0.0
+  products.forEach((element) => {
+    totalAmount += parseFloat(element.price)
+  })
+  return totalAmount
+}
+
 const initialState = {
   products: [],
   resume: false,
+  total: 0.0,
 }
 
 function reducer(state, action) {
@@ -13,6 +22,7 @@ function reducer(state, action) {
       return {
         ...state,
         products: action.payload,
+        total: calculateTotal(action.payload),
       }
     case 'RESUME_CART':
       return { ...state, resume: true }
@@ -29,6 +39,7 @@ function CartContextProvider({ children }) {
   const CartStates = {
     ...state,
     addToCart: (data) => dispatch({ type: 'ADD_TO_CART', payload: data }),
+
     resumeCart: () => dispatch({ type: 'RESUME_CART' }),
     orderDone: () => dispatch({ type: 'ORDER_DONE' }),
   }

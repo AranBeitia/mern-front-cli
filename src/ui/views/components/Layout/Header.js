@@ -8,7 +8,7 @@ import { useAuth } from '../../../../context/AuthContext.js'
 import { useCart } from '../../../../context/CartContext.js'
 
 function Header({ title }) {
-  const { products, resumeCart } = useCart()
+  const { products, resumeCart, total } = useCart()
   const { currentUser, setCurrentUser, logout } = useAuth()
   const history = useNavigate()
   function handleLogout() {
@@ -54,7 +54,7 @@ function Header({ title }) {
           {products.length > 0 && (
             <Link to={'/resume'}>
               <div className="text-primary" onClick={resumeCart}>
-                {products.length} items
+                {products.length} items - {total}€
               </div>
             </Link>
           )}
