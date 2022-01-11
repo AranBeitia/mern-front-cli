@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import Header from '../../components/Layout/Header'
 import { useAuth } from '../../../../context/AuthContext'
+import { useCart } from '../../../../context/CartContext'
 
 function SignUp() {
   const fullNameRef = useRef()
@@ -16,6 +17,7 @@ function SignUp() {
   const passwordConfirmRef = useRef()
   const [error, setError] = useState('')
   const { setIsLogged, currentUser, setCurrentUser } = useAuth()
+  const { resume } = useCart()
   const history = useNavigate()
 
   async function handleSubmit(e) {
