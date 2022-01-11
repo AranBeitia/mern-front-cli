@@ -7,9 +7,11 @@ import Swal from 'sweetalert2'
 import { Container, Form, Button } from 'react-bootstrap'
 import clientAxios from '../../../../config/axios'
 import { useUsers } from '../../../../context/UsersContext'
+import { useAuth } from '../../../../context/AuthContext'
 
 export default function EmployeeNew() {
   let navigate = useNavigate()
+  const { role } = useAuth()
   const { id } = useParams()
   const [user, setUser] = useState()
   const { users, loadUsers } = useUsers()
@@ -38,6 +40,7 @@ export default function EmployeeNew() {
       const res = await clientAxios.post('/users', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'role': role,
         },
       })
       if (res.status === 201) {
