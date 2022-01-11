@@ -119,7 +119,7 @@ function SignUp() {
                     required
                   ></Form.Control>
                 </Form.Group>
-                <Button className="w-100" type="submit">
+                <Button className="w-100 mt-2" type="submit">
                   Sign Up
                 </Button>
               </Form>
