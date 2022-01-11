@@ -2,10 +2,12 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useCart } from '../../../../context/CartContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 export default function CartResume() {
   const { products } = useCart()
   const isLogged = getlocalStorage()
+  
 
   return (
     <>
