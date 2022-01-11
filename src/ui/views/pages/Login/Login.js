@@ -67,7 +67,7 @@ function Login() {
       }else if(userRole === 'employee'){
         history('/employees')
       }else{
-        history('/')
+        history('/purchase')
       }
     }
   }

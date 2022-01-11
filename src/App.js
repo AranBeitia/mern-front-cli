@@ -15,6 +15,7 @@ import SignUp from './ui/views/pages/SignUp'
 //import PrivateRouter from './ui/views/pages/Private/PrivateRouter'
 import EmployeeNew from './ui/views/pages/EmployeeCrud/EmployeeNew'
 import EmployeeEdit from './ui/views/pages/EmployeeCrud/EmployeeEdit'
+import Purchase from './ui/views/pages/Purchase/Purchase'
 
 function App() {
   return (
@@ -30,10 +31,12 @@ function App() {
             <Route path="/products" element={<Product />} />
             <Route path="/products/new" element={<ProductNew />} />
             <Route path="/products/edit/:id" element={<ProductEdit />} />
-
+            
             <Route path="/employees" element={<Employee />} />
             <Route path="/employees/new" element={<EmployeeNew />} />
             <Route path="/employees/:id" element={<EmployeeEdit />} />
+            
+            <Route path="/purchase" element={<Purchase />} />
           </Routes>
         </ProductProvider>
       </UsersContextProvider>
