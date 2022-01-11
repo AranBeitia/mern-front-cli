@@ -5,9 +5,11 @@ import AdminNav from '../../components/Layout/AdminNav'
 import Swal from 'sweetalert2'
 import { Container, Form, Button } from 'react-bootstrap'
 import clientAxios from '../../../../config/axios'
+import { useAuth } from '../../../../context/AuthContext'
 
 export default function EmployeeEdit() {
   let navigate = useNavigate()
+  const { role } = useAuth()
   const { id } = useParams()
   const [user, setUser] = useState()
 
@@ -39,6 +41,7 @@ export default function EmployeeEdit() {
       const res = await clientAxios.patch(`/users/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'role': role,
         },
       })
       if (res.status === 200) {

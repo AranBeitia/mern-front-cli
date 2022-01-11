@@ -9,8 +9,11 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Swal from 'sweetalert2'
 
+import { useAuth } from '../../../../context/AuthContext'
+
 function ProductNew() {
   let navigate = useNavigate()
+  const { role } = useAuth()
   const [product, setProduct] = useState({
     title: '',
     description: '',
@@ -44,6 +47,7 @@ function ProductNew() {
       const res = await clientAxios.post('/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'role': role,
         },
       })
 

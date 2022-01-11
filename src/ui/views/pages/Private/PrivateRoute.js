@@ -11,7 +11,7 @@ import ProductEdit from '../Product/ProductEdit'
 function AdminPrivateRouter({ children, ...rest }) {
   const { role } = useAuth()
   console.log(role)
-  if (role !== 'admin') {
+  if (role !== 'admin' && role !== 'employee') {
     return <Navigate to="/403" />
   }
   return <Product />

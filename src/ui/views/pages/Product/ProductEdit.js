@@ -8,9 +8,11 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Swal from 'sweetalert2'
+import { useAuth } from '../../../../context/AuthContext'
 
 function ProductEdit() {
   const { id } = useParams()
+  const { role } = useAuth()
   let navigate = useNavigate()
   const [product, setProduct] = useState({
     title: '',
@@ -50,6 +52,7 @@ function ProductEdit() {
       const res = await clientAxios.patch(`/products/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'role': role
         },
       })
 
