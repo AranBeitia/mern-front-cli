@@ -81,7 +81,9 @@ function CardProduct({
         ) : (
           <Button
             variant="success"
-            onClick={() => addToCart([title, ...products])}
+            onClick={() =>
+              addToCart([{ title: title, price: price, id: id }, ...products])
+            }
           >
             Purchase
           </Button>
