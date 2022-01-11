@@ -17,15 +17,17 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsuscribe = auth.onAuthStateChanged((user) => {
+      //! 
       //setCurrentUser(user)
       setLoading(false)
     })
     return unsuscribe
-  }, [])
+  }, [role])
 
   async function logout() {
     setError('')
     try {
+      setRole('client')
       await auth.signOut()
     } catch (error) {
       console.log(error)

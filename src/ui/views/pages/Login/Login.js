@@ -19,7 +19,7 @@ function Login() {
   const history = useNavigate()
   const { setCurrentUser, setIsLogged, role, setRole } = useAuth()
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     e.stopPropagation()
 
@@ -58,11 +58,11 @@ function Login() {
         .then((response) => response.json())
         .then((data) => data)
 
-      setRole(loginResponse.user.role)
-      console.log(role);
+      await setRole(loginResponse.user.role)
+      let userRole = loginResponse.user.role
       setCurrentUser(loginResponse.user)
       setIsLogged(true)
-      if (role!== 'client') {
+      if (userRole !== 'client') {
         history('/admin')
       }else{
         history('/')
