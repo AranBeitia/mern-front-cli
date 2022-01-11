@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import noImage from '../../../assets/img/no-image.jpeg'
 import TheModal from '../TheModal'
+import { useProduct } from '../../../../context/ProductContext'
 import { useCart } from '../../../../context/CartContext'
 
 function CardProduct({
@@ -19,6 +20,8 @@ function CardProduct({
   gallery,
 }) {
   const [modalShow, setModalShow] = React.useState(false)
+  const { change } = useProduct()
+
   const { products, addToCart } = useCart()
   const handleDelete = (id) => {
     Swal.fire({
@@ -34,8 +37,8 @@ function CardProduct({
         clientAxios.delete(`/products/${id}`).then((res) => {
           if (res.status === 200) {
             Swal.fire('Deleted!', res.data.message, 'success')
+            change()
           }
-          setHasChanged(true)
         })
       }
     })

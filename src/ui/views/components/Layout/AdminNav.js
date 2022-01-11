@@ -12,13 +12,19 @@ function AdminNav() {
     <aside>
       <nav className="admin-nav d-flex flex-column">
         {isAdmin ? (
+          <>
+            <Link to={'/products'} className="ico-product">
+              Products
+            </Link>
+            <Link to={'/employees'} className="ico-employee">
+              Users
+            </Link>
+          </>
+        ) : (
           <Link to={'/products'} className="ico-product">
             Products
           </Link>
-        ) : null}
-        <Link to={'/employees'} className="ico-employee">
-          Users
-        </Link>
+        )}
       </nav>
     </aside>
   )

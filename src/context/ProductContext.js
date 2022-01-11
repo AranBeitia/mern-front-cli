@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useReducer,
-  useEffect,
-  useState,
-} from 'react'
+import React, { createContext, useContext, useReducer, useEffect } from 'react'
 import clientAxios from '../config/axios'
 
 const ProductContext = createContext()
@@ -30,6 +24,11 @@ export const reducer = (state, action) => {
         hasChanged: false,
         products: [...action.payload],
       }
+    case 'CHANGE':
+      return {
+        ...state,
+        hasChanged: true,
+      }
     default:
       return state
   }
@@ -37,8 +36,8 @@ export const reducer = (state, action) => {
 
 function ProductProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { products } = state
-  const [hasChanged, setHasChanged] = useState()
+  const { products, hasChanged } = state
+  // const [hasChanged, setHasChanged] = useState()
 
   const consultAPI = async () => {
     const consultProducts = await clientAxios.get('/products')
@@ -56,12 +55,12 @@ function ProductProvider({ children }) {
   useEffect(() => {
     if (hasChanged) {
       consultAPI()
-      setHasChanged(false)
     }
   }, [hasChanged])
 
   const productStates = {
     ...state,
+    change: () => dispatch({ type: 'CHANGE' }),
   }
   return (
     <ProductContext.Provider value={productStates}>
