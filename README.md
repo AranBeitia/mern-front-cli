@@ -52,12 +52,6 @@ Install dependencies for backend and frontend.
 - Learn how to work with templating languages in node.js
 
 ## 🔗 Authors
-- [@Antonio](https://github.com/AntonioCopete)
-- [@Yaiser](https://github.com/yaigenes)
-- [@Jose](https://github.com/Jose1i1o)
-- [@Arantza](https://github.com/aranbeitia)
-
-
 | Contributor | Github profile
 | ------------------------| -----------------------------------------------------------------------|
 | [![](https://avatars2.githubusercontent.com/u/12766483?s=90&v=4)](https://github.com/aranbeitia) | [@AranBeitia](https://www.github.com/AranBeitia) |
