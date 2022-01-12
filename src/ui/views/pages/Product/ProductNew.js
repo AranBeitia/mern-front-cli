@@ -52,7 +52,7 @@ function ProductNew() {
       const res = await clientAxios.post('/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          role: role,
+          'role': role,
         },
       })
 
@@ -71,7 +71,7 @@ function ProductNew() {
   }
   return (
     <>
-      <Header title={'Administration'} />
+      <Header />
       <Container className="grid">
         <AdminNav />
         <main>

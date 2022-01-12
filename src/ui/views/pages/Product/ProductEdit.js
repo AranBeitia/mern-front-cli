@@ -47,7 +47,7 @@ function ProductEdit() {
       const res = await clientAxios.patch(`/products/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          role: role,
+          'role': role,
         },
       })
 
@@ -74,7 +74,7 @@ function ProductEdit() {
 
   return (
     <>
-      <Header title={'Administration'} />
+      <Header />
       <Container className="grid">
         <AdminNav />
         <main>

@@ -10,13 +10,15 @@ import { getlocalStorage } from '../../../../utils/localStorage'
 
 export default function EmployeeEdit() {
   let navigate = useNavigate()
-
-  const currentUser = getlocalStorage()
-  const role = currentUser.role
-
   const { id } = useParams()
   const [user, setUser] = useState()
 
+  const currentUser = getlocalStorage()
+  let role = ''
+  currentUser ? (role = currentUser.role) : (role ='client')
+  console.log(role)
+
+  
   useEffect(() => {
     fetchUser()
   }, [])
@@ -45,7 +47,7 @@ export default function EmployeeEdit() {
       const res = await clientAxios.patch(`/users/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          role: role,
+          'role': role,
         },
       })
       if (res.status === 200) {
@@ -63,7 +65,7 @@ export default function EmployeeEdit() {
   }
   return (
     <>
-      <Header title={'Administration'} />
+      <Header />
       {user && (
         <Container className="grid">
           <AdminNav />

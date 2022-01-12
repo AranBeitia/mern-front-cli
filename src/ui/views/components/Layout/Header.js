@@ -7,8 +7,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/AuthContext.js'
 import { useCart } from '../../../../context/CartContext.js'
 import { getlocalStorage } from '../../../../utils/localStorage.js'
+import './Header.scss'
 
-function Header({ title }) {
+function Header() {
   const { products, resumeCart, total } = useCart()
   const { logout } = useAuth()
   const history = useNavigate()
@@ -28,10 +29,9 @@ function Header({ title }) {
               Luna negra shop
             </Link>
           </Navbar.Brand>
-          <Navbar.Text>{title}</Navbar.Text>
-          {currentUser ? (
+          {currentUser && (
             <Navbar.Text>Welcome {currentUser.email}</Navbar.Text>
-          ) : null}
+          )}
           <div as={Row}>
             {!currentUser ? (
               <div>
@@ -55,9 +55,11 @@ function Header({ title }) {
             )}
           </div>
           {products.length > 0 && (
-            <Link to={'/resume'}>
-              <div className="text-primary" onClick={resumeCart}>
-                {products.length} items - {total}€
+            <Link to={'/resume'} className="header__link d-flex">
+              <span className="ico-basquet"></span>
+              <div onClick={resumeCart} className="d-flex flex-column">
+                <span className="text-light">{products.length} items</span>
+                <span className="text-light">{total}€</span>
               </div>
             </Link>
           )}

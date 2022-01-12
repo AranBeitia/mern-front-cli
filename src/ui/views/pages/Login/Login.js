@@ -10,7 +10,10 @@ import { auth } from '../../../../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useAuth } from '../../../../context/AuthContext'
 import { useCart } from '../../../../context/CartContext'
-import { getlocalStorage, postlocalStorage } from '../../../../utils/localStorage'
+import {
+  getlocalStorage,
+  postlocalStorage,
+} from '../../../../utils/localStorage'
 
 function Login() {
   const emailRef = useRef()
@@ -61,9 +64,8 @@ function Login() {
         .then((response) => response.json())
         .then((data) => data)
 
-      
       let userRole = loginResponse.user.role
-      
+
       postlocalStorage(loginResponse.user)
 
       setIsLogged(true)
@@ -80,7 +82,7 @@ function Login() {
   }
   return (
     <>
-      <Header title="Login" />
+      <Header />
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: '100vh' }}

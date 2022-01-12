@@ -8,7 +8,7 @@ import CardProductFeed from '../../components/CardProduct'
 function Product() {
   return (
     <>
-      <Header title={'Administration'} />
+      <Header />
       <Container className="grid">
         <AdminNav />
         <main>

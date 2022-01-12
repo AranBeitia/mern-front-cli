@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import './AdminNav.scss'
-import { useAuth } from '../../../../context/AuthContext.js'
+
 import { getlocalStorage } from '../../../../utils/localStorage'
 
 function AdminNav() {

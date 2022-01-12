@@ -8,6 +8,7 @@ import noImage from '../../../assets/img/no-image.jpeg'
 import TheModal from '../TheModal'
 import { useProduct } from '../../../../context/ProductContext'
 import { useCart } from '../../../../context/CartContext'
+import {getlocalStorage} from '../../../../utils/localStorage'
 
 function CardProduct({
   isEditable,
@@ -21,8 +22,13 @@ function CardProduct({
 }) {
   const [modalShow, setModalShow] = React.useState(false)
   const { change } = useProduct()
-
   const { products, addToCart } = useCart()
+
+  const currentUser = getlocalStorage()
+  let role = ''
+  currentUser ? (role = currentUser.role) : (role ='client')
+  console.log(role)
+
   const handleDelete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -34,7 +40,12 @@ function CardProduct({
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        clientAxios.delete(`/products/${id}`).then((res) => {
+        clientAxios.delete(`/products/${id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'role': role,
+          },
+        }).then((res) => {
           if (res.status === 200) {
             Swal.fire('Deleted!', res.data.message, 'success')
             change()

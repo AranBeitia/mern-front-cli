@@ -44,7 +44,7 @@ export default function EmployeeNew() {
       const res = await clientAxios.post('/users', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          role: role,
+          'role': role,
         },
       })
       if (res.status === 201) {
@@ -62,7 +62,7 @@ export default function EmployeeNew() {
 
   return (
     <>
-      <Header title={'Administration'} />
+      <Header />
       <Container className="grid">
         <AdminNav />
         <main>
