@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Container } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/AuthContext'
 import { usePurchase } from '../../../../context/PurchaseContext'
@@ -82,64 +82,66 @@ export default function Step1() {
   return (
     <div>
       <Header />
-      <h1>Purchase</h1>
+      <Container>
+        <h1>Purchase</h1>
 
-      <Form onSubmit={handleSubmit}>
-        <h1>1.User address and shipping details</h1>
-        <Form.Group id="address">
-          <Form.Label>Adress</Form.Label>
-          <Form.Control
-            type="text"
-            name="address"
-            value={addressForm}
-            onChange={changeAddress}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group id="town">
-          <Form.Label>Town</Form.Label>
-          <Form.Control
-            type="text"
-            name="town"
-            value={townForm}
-            onChange={changeTown}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group id="state">
-          <Form.Label>State</Form.Label>
-          <Form.Control
-            type="text"
-            name="state"
-            value={stateForm}
-            onChange={changeState}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group id="postCode">
-          <Form.Label>PostCode</Form.Label>
-          <Form.Control
-            type="text"
-            name="postCode"
-            value={postCodeForm}
-            onChange={changePostCode}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group id="country">
-          <Form.Label>Country</Form.Label>
-          <Form.Control
-            type="text"
-            name="country"
-            value={countryForm}
-            onChange={changeCountry}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Button className="w-100" type="submit">
-          Next step
-        </Button>
-      </Form>
+        <Form onSubmit={handleSubmit}>
+          <h1>1.User address and shipping details</h1>
+          <Form.Group id="address">
+            <Form.Label>Adress</Form.Label>
+            <Form.Control
+              type="text"
+              name="address"
+              value={addressForm}
+              onChange={changeAddress}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group id="town">
+            <Form.Label>Town</Form.Label>
+            <Form.Control
+              type="text"
+              name="town"
+              value={townForm}
+              onChange={changeTown}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group id="state">
+            <Form.Label>State</Form.Label>
+            <Form.Control
+              type="text"
+              name="state"
+              value={stateForm}
+              onChange={changeState}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group id="postCode">
+            <Form.Label>PostCode</Form.Label>
+            <Form.Control
+              type="text"
+              name="postCode"
+              value={postCodeForm}
+              onChange={changePostCode}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group id="country">
+            <Form.Label>Country</Form.Label>
+            <Form.Control
+              type="text"
+              name="country"
+              value={countryForm}
+              onChange={changeCountry}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Button className="w-100" type="submit">
+            Next step
+          </Button>
+        </Form>
+      </Container>
     </div>
   )
 }

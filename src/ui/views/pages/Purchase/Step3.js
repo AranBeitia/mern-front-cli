@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import clientAxios from '../../../../config/axios'
 import { useCart } from '../../../../context/CartContext'
@@ -28,7 +28,7 @@ export default function Step3() {
   return (
     <>
       <Header />
-      <main>
+      <Container>
         <h1>3.Review info</h1>
         <p>Here the summary of the purchase</p>
 
@@ -89,7 +89,7 @@ export default function Step3() {
         <Button className="w-100" onClick={handleSubmit}>
           Next step
         </Button>
-      </main>
+      </Container>
     </>
   )
 }

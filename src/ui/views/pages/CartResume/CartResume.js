@@ -13,16 +13,15 @@ export default function CartResume() {
     <Container>
       <h2>You have {products.length} items in your shopping cart</h2>
       <ListGroup as="ol" numbered>
-        {products.map((product) => {
+        {products.map((product, index) => {
           return (
             <ListGroup.Item
-              key={product.id}
+              key={index}
               as="li"
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
                 <div className="fw-bold">{product.title}</div>
-                Cras justo odio
               </div>
               <Badge bg="dark" text="light">
                 {product.price}€
