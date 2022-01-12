@@ -1,27 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
+import React from 'react'
+import { getlocalStorage } from '../../../../utils/localStorage'
+import { Button, Container, ListGroup, Badge } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useCart } from '../../../../context/CartContext'
-import { getlocalStorage } from '../../../../utils/localStorage'
-import CartItem from './CartItem'
+// import CartItem from './CartItem'
 
 export default function CartResume() {
   const { products, total } = useCart()
   const isLogged = getlocalStorage()
 
   return (
-    <>
-      <h2>You are going to buy {products.length} items</h2>
-
-      {products.map((product) => {
-        return (
-          <CartItem
-            key={product.id}
-            title={product.title}
-            price={product.price}
-          />
-        )
-      })}
+    <Container>
+      <h2>You have {products.length} items in your shopping cart</h2>
+      <ListGroup as="ol" numbered>
+        {products.map((product) => {
+          return (
+            <ListGroup.Item
+              key={product.id}
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">{product.title}</div>
+                Cras justo odio
+              </div>
+              <Badge bg="dark" text="light">
+                {product.price}€
+              </Badge>
+            </ListGroup.Item>
+            // <CartItem
+            //   key={product.id}
+            //   title={product.title}
+            //   price={product.price}
+            // />
+          )
+        })}
+      </ListGroup>
       <div>Total: {total}€</div>
       <div>
         {isLogged ? (
@@ -39,6 +53,6 @@ export default function CartResume() {
           </>
         )}
       </div>
-    </>
+    </Container>
   )
 }
