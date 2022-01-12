@@ -27,7 +27,7 @@ function reducer(state, action) {
     case 'RESUME_CART':
       return { ...state, resume: true }
     case 'ORDER_DONE':
-      return { ...state, resume: false }
+      return { ...state, resume: false, products: [] }
     default:
       return state
   }

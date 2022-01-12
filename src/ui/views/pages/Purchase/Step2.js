@@ -58,16 +58,13 @@ export default function Step2() {
 
     paymentSubmit(values)
     setSubmit(true)
-    // changeStep(currentStep + 1)
-
-    console.log(currentUser)
   }
   return (
     <>
       <Header />
-      <Container>
+      <Container className="py-3">
         <Form onSubmit={handleSubmit}>
-          <h1> 2.Payment info</h1>
+          <h2> 2.Payment info</h2>
           <Form.Group id="card">
             <Form.Label>Card Holder Fullname</Form.Label>
             <Form.Control
@@ -98,14 +95,14 @@ export default function Step2() {
               required
             ></Form.Control>
           </Form.Group>
-
-          <Link to={'/step1'} className="btn btn-info">
-            prev
-          </Link>
-
-          <Button className="w-100" type="submit">
-            Next step
-          </Button>
+          <div className="d-flex justify-content-between mt-2">
+            <Link to={'/step1'} className="btn btn-primary">
+              Prev
+            </Link>
+            <Button className="btn btn-primary" type="submit">
+              Next
+            </Button>
+          </div>
         </Form>
       </Container>
     </>

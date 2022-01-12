@@ -82,11 +82,11 @@ export default function Step1() {
   return (
     <div>
       <Header />
-      <Container>
+      <Container className="py-3">
         <h1>Purchase</h1>
 
         <Form onSubmit={handleSubmit}>
-          <h1>1.User address and shipping details</h1>
+          <h2>1.User address and shipping details</h2>
           <Form.Group id="address">
             <Form.Label>Adress</Form.Label>
             <Form.Control
@@ -137,8 +137,8 @@ export default function Step1() {
               required
             ></Form.Control>
           </Form.Group>
-          <Button className="w-100" type="submit">
-            Next step
+          <Button className="btn btn-primary mt-2" type="submit">
+            Next
           </Button>
         </Form>
       </Container>

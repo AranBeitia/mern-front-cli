@@ -21,7 +21,6 @@ function SignUp() {
   const { resume } = useCart()
   const history = useNavigate()
 
-
   async function handleSubmit(e) {
     e.preventDefault()
     const email = emailRef.current.value
@@ -66,7 +65,6 @@ function SignUp() {
       })
         .then((response) => response.json())
         .then((res) => {
-
           postlocalStorage(res.data)
           if (resume) {
             history('/resume')
@@ -77,6 +75,7 @@ function SignUp() {
         .catch((err) => setError(err.message))
     }
   }
+
   return (
     <>
       <Header />
