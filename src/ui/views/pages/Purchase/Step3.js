@@ -1,28 +1,64 @@
 import { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import clientAxios from '../../../../config/axios'
 import { useCart } from '../../../../context/CartContext'
 import { usePurchase } from '../../../../context/PurchaseContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 import Header from '../../components/Layout/Header'
 import CartItem from '../CartResume/CartItem'
 
 export default function Step3() {
+  const navigate = useNavigate()
   const { address, payment } = usePurchase()
   const { products, total } = useCart()
+  const currentUser = getlocalStorage()
 
   const [isSubmit, setSubmit] = useState(false)
 
   useEffect(() => {
     if (isSubmit) {
-      navigate('/step3')
+      navigate('/step4')
     }
   }, [isSubmit])
+
+  async function submitData() {
+    const userAddress = {
+      address: address.address,
+      country: address.country,
+      postCode: address.postCode,
+      state: address.state,
+      town: address.town,
+    }
+
+    const userPayment = {
+      cardNumber: payment.cardNumber,
+      cvc: payment.cvc,
+      card: payment.card,
+    }
+
+    const cart = {
+      products: products,
+    }
+
+    clientAxios
+      .post(
+        '/orders',
+        { userAddress, userPayment, cart },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then((res) => setSubmit(true))
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
     e.stopPropagation()
-    // clientAxios.post('')
+
+    submitData()
   }
 
   return (
