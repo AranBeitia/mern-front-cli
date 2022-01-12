@@ -6,7 +6,7 @@ import { usePurchase } from '../../../../context/PurchaseContext'
 import FormButtons from '../../components/FormButtons/FormButtons'
 import Header from '../../components/Layout/Header'
 
-export default function FirstStep() {
+export default function Step1() {
   const navigate = useNavigate()
   const { adressSubmit, address } = usePurchase()
   const { currentUser } = useAuth()
