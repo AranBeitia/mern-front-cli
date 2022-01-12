@@ -6,16 +6,19 @@ import Button from 'react-bootstrap/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/AuthContext.js'
 import { useCart } from '../../../../context/CartContext.js'
+import { getlocalStorage } from '../../../../utils/localStorage.js'
 
 function Header({ title }) {
   const { products, resumeCart, total } = useCart()
-  const { currentUser, setCurrentUser, logout } = useAuth()
+  const { logout } = useAuth()
   const history = useNavigate()
   function handleLogout() {
     logout()
-    setCurrentUser('')
     history('/')
   }
+
+  const currentUser = getlocalStorage()
+
   return (
     <>
       <Navbar bg="dark" variant="dark">

@@ -72,14 +72,10 @@ export default function Step1() {
       postCode: postCodeForm,
       state: stateForm,
       town: townForm,
-      // cardNumber: cardNumber,
-      // cvc: cvc,
-      // card: card
     }
 
     adressSubmit(values)
     setSubmit(true)
-    // changeStep(currentStep + 1)
 
     console.log(currentUser)
   }
@@ -140,11 +136,9 @@ export default function Step1() {
             required
           ></Form.Control>
         </Form.Group>
-        {/* <Link to={'/step2'}> */}
         <Button className="w-100" type="submit">
           Next step
         </Button>
-        {/* </Link> */}
       </Form>
     </div>
   )

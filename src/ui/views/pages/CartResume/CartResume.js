@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../../../../context/AuthContext'
 import { useCart } from '../../../../context/CartContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 import CartItem from './CartItem'
 
 export default function CartResume() {
   const { products, total } = useCart()
-  const { isLogged } = useAuth()
+  const isLogged = getlocalStorage()
 
   return (
     <>

@@ -8,6 +8,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import Header from '../../components/Layout/Header'
 import { useAuth } from '../../../../context/AuthContext'
+import { useCart } from '../../../../context/CartContext'
+import { postlocalStorage } from '../../../../utils/localStorage'
 
 function SignUp() {
   const fullNameRef = useRef()
@@ -16,7 +18,9 @@ function SignUp() {
   const passwordConfirmRef = useRef()
   const [error, setError] = useState('')
   const { setIsLogged, currentUser, setCurrentUser } = useAuth()
+  const { resume } = useCart()
   const history = useNavigate()
+
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -62,7 +66,8 @@ function SignUp() {
       })
         .then((response) => response.json())
         .then((res) => {
-          setCurrentUser(res.data)
+
+          postlocalStorage(res.data)
           if (resume) {
             history('/resume')
           } else {
@@ -117,7 +122,7 @@ function SignUp() {
                     required
                   ></Form.Control>
                 </Form.Group>
-                <Button className="w-100" type="submit">
+                <Button className="w-100 mt-2" type="submit">
                   Sign Up
                 </Button>
               </Form>

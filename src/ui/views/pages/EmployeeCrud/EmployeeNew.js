@@ -7,9 +7,15 @@ import Swal from 'sweetalert2'
 import { Container, Form, Button } from 'react-bootstrap'
 import clientAxios from '../../../../config/axios'
 import { useUsers } from '../../../../context/UsersContext'
+import { useAuth } from '../../../../context/AuthContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 export default function EmployeeNew() {
   let navigate = useNavigate()
+
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
+
   const { id } = useParams()
   const [user, setUser] = useState()
   const { users, loadUsers } = useUsers()
@@ -38,10 +44,11 @@ export default function EmployeeNew() {
       const res = await clientAxios.post('/users', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          role: role,
         },
       })
       if (res.status === 201) {
-        Swal.fire('Product added correctly', res.data.message, 'success')
+        Swal.fire('User added correctly', res.data.message, 'success')
         navigate('/employees')
       }
     } catch (error) {

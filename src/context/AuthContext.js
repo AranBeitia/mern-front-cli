@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { auth } from '../firebase.js'
 import { useNavigate } from 'react-router-dom'
+import { removeLocalStorage } from '../utils/localStorage.js'
 
 const AuthContext = React.createContext()
 
@@ -18,6 +19,7 @@ export function AuthProvider({ children }) {
     setError('')
     try {
       setRole('client')
+      removeLocalStorage()
       await auth.signOut()
     } catch (error) {
       console.log(error)

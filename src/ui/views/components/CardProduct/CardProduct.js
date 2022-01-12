@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import noImage from '../../../assets/img/no-image.jpeg'
 import TheModal from '../TheModal'
+import { useProduct } from '../../../../context/ProductContext'
 import { useCart } from '../../../../context/CartContext'
 
 function CardProduct({
@@ -19,6 +20,8 @@ function CardProduct({
   gallery,
 }) {
   const [modalShow, setModalShow] = React.useState(false)
+  const { change } = useProduct()
+
   const { products, addToCart } = useCart()
   const handleDelete = (id) => {
     Swal.fire({
@@ -34,8 +37,8 @@ function CardProduct({
         clientAxios.delete(`/products/${id}`).then((res) => {
           if (res.status === 200) {
             Swal.fire('Deleted!', res.data.message, 'success')
+            change()
           }
-          setHasChanged(true)
         })
       }
     })
@@ -43,10 +46,7 @@ function CardProduct({
 
   return (
     <>
-      <Card
-        className={!isEditable ? 'hover' : ''}
-        onClick={() => setModalShow(true)}
-      >
+      <Card>
         {image ? (
           <Card.Img
             variant="top"
@@ -60,7 +60,7 @@ function CardProduct({
           <Card.Title>{title}</Card.Title>
           <Card.Text>
             {description.length > 150
-              ? `${description.slice(0, 150)}... see more`
+              ? `${description.slice(0, 150)}...`
               : description}
           </Card.Text>
           <div>
@@ -79,17 +79,22 @@ function CardProduct({
             </Button>
           </Card.Footer>
         ) : (
-          <Button
-            variant="success"
-            onClick={() =>
-              addToCart([{ title: title, price: price, id: id }, ...products])
-            }
-          >
-            Purchase
-          </Button>
+          <div className="d-flex justify-content-between p-3">
+            <Button variant="dark" onClick={() => setModalShow(true)}>
+              See more
+            </Button>
+            <Button
+              variant="success"
+              onClick={() =>
+                addToCart([{ title: title, price: price, id: id }, ...products])
+              }
+            >
+              Purchase
+            </Button>
+          </div>
         )}
       </Card>
-      {!isEditable ? (
+      {!isEditable && (
         <TheModal
           show={modalShow}
           onHide={() => setModalShow(false)}
@@ -101,7 +106,7 @@ function CardProduct({
           image={image}
           gallery={gallery}
         />
-      ) : null}
+      )}
     </>
   )
 }

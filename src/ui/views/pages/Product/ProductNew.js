@@ -9,8 +9,16 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Swal from 'sweetalert2'
 
+import { useProduct } from '../../../../context/ProductContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
+
 function ProductNew() {
   let navigate = useNavigate()
+  const { change } = useProduct()
+
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
+
   const [product, setProduct] = useState({
     title: '',
     description: '',
@@ -44,11 +52,13 @@ function ProductNew() {
       const res = await clientAxios.post('/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          role: role,
         },
       })
 
       if (res.status === 200) {
         Swal.fire('Product added correctly', res.data.message, 'success')
+        change()
         navigate('/products')
       }
     } catch (error) {

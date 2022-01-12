@@ -5,9 +5,15 @@ import AdminNav from '../../components/Layout/AdminNav'
 import Swal from 'sweetalert2'
 import { Container, Form, Button } from 'react-bootstrap'
 import clientAxios from '../../../../config/axios'
+import { useAuth } from '../../../../context/AuthContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 export default function EmployeeEdit() {
   let navigate = useNavigate()
+
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
+
   const { id } = useParams()
   const [user, setUser] = useState()
 
@@ -39,10 +45,11 @@ export default function EmployeeEdit() {
       const res = await clientAxios.patch(`/users/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          role: role,
         },
       })
       if (res.status === 200) {
-        Swal.fire('Product added correctly', res.data.message, 'success')
+        Swal.fire('Employee updated correctly', res.data.message, 'success')
         navigate('/employees')
       }
     } catch (error) {

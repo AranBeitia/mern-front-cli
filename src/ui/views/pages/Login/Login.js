@@ -10,6 +10,7 @@ import { auth } from '../../../../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useAuth } from '../../../../context/AuthContext'
 import { useCart } from '../../../../context/CartContext'
+import { getlocalStorage, postlocalStorage } from '../../../../utils/localStorage'
 
 function Login() {
   const emailRef = useRef()
@@ -18,7 +19,7 @@ function Login() {
   const [loading, setLoading] = useState(false)
   const [auth, setAuth] = useState()
   const history = useNavigate()
-  const { setCurrentUser, setIsLogged, role, setRole } = useAuth()
+  const { setIsLogged } = useAuth()
   const { resume } = useCart()
 
   async function handleSubmit(e) {
@@ -60,16 +61,18 @@ function Login() {
         .then((response) => response.json())
         .then((data) => data)
 
-      await setRole(loginResponse.user.role)
+      
       let userRole = loginResponse.user.role
-      setCurrentUser(loginResponse.user)
+      
+      postlocalStorage(loginResponse.user)
+
       setIsLogged(true)
       if (resume) {
         history('/resume')
       } else if (userRole === 'admin') {
         history('/admin')
       } else if (userRole === 'employee') {
-        history('/employees')
+        history('/products')
       } else {
         history('/')
       }
@@ -104,13 +107,10 @@ function Login() {
                     required
                   ></Form.Control>
                 </Form.Group>
-                <Button disabled={loading} className="w-100" type="submit">
+                <Button disabled={loading} className="w-100 mt-2" type="submit">
                   Log In
                 </Button>
               </Form>
-              <div className="w-100 text-center mt-3">
-                <Link to="/forgot-password">Forgot Password?</Link>
-              </div>
             </Card.Body>
           </Card>
           <div className="w-100 text-center mt-2">

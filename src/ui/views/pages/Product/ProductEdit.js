@@ -8,9 +8,14 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Swal from 'sweetalert2'
+import { useProduct } from '../../../../context/ProductContext'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 function ProductEdit() {
+  const { change } = useProduct()
   const { id } = useParams()
+  const currentUser = getlocalStorage()
+  const role = currentUser.role
   let navigate = useNavigate()
   const [product, setProduct] = useState({
     title: '',
@@ -18,8 +23,7 @@ function ProductEdit() {
     price: '',
     stock: '',
   })
-  const [file, setFile] = useState('')
-  const [hasChanged, setHasChanged] = useState(false)
+  // const [file, setFile] = useState('')
 
   const consultAPI = async () => {
     const consultProduct = await clientAxios.get(`/products/${id}`)
@@ -30,13 +34,6 @@ function ProductEdit() {
     consultAPI()
   }, [])
 
-  useEffect(() => {
-    if (hasChanged) {
-      consultAPI()
-      setHasChanged(true)
-    }
-  }, [hasChanged])
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData()
@@ -44,17 +41,19 @@ function ProductEdit() {
     formData.append('description', product.description)
     formData.append('price', product.price)
     formData.append('stock', product.stock)
-    formData.append('mainImage', file)
+    // formData.append('mainImage', file)
 
     try {
       const res = await clientAxios.patch(`/products/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          role: role,
         },
       })
 
       if (res.status === 200) {
-        Swal.fire('Product added correctly', res.data.message, 'success')
+        Swal.fire('Product updated correctly', res.data.message, 'success')
+        change()
         navigate('/products')
       }
     } catch (error) {
@@ -71,10 +70,6 @@ function ProductEdit() {
       ...product,
       [e.target.name]: e.target.value,
     })
-  }
-
-  const handleFile = (e) => {
-    setFile(e.target.files[0])
   }
 
   return (
@@ -133,19 +128,19 @@ function ProductEdit() {
             </div>
 
             <Form.Group className="mb-3" id="images">
-              {product.images ? (
+              {product.mainImage ? (
                 <img
-                  src={`http://localhost:4000/${product.images}`}
-                  alt={product.images}
+                  src={`http://localhost:4000/${product.mainImage}`}
+                  alt={product.mainImage}
                   width="200"
                 />
               ) : null}
-              <Form.Control
+              {/* <Form.Control
                 type="file"
                 name="images"
                 label="Upload image"
                 onChange={handleFile}
-              />
+              /> */}
             </Form.Group>
 
             <Button variant="info" type="submit">
