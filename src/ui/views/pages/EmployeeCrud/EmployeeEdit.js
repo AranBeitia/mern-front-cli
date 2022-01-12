@@ -63,7 +63,7 @@ export default function EmployeeEdit() {
   }
   return (
     <>
-      <Header title={'Administration'} />
+      <Header />
       {user && (
         <Container className="grid">
           <AdminNav />

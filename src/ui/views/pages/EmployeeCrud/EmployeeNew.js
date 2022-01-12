@@ -62,7 +62,7 @@ export default function EmployeeNew() {
 
   return (
     <>
-      <Header title={'Administration'} />
+      <Header />
       <Container className="grid">
         <AdminNav />
         <main>

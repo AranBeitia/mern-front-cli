@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container'
 function Home() {
   return (
     <>
-      <Header title={'Products'} />
+      <Header />
       <Container className="my-5">
         <CardProductFeed />
       </Container>

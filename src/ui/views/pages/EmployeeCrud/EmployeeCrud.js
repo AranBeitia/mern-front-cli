@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 function EmployeeCrud() {
   return (
     <>
-      <Header title={'Administration'} />
+      <Header />
       <Container className="grid">
         <AdminNav />
         <main>

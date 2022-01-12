@@ -5,7 +5,7 @@ import AdminNav from '../../components/Layout/AdminNav'
 function Admin() {
   return (
     <>
-      <Header title={'Administration'} />
+      <Header />
       <Container className="grid">
         <AdminNav />
         <main>
