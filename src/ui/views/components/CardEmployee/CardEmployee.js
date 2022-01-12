@@ -4,9 +4,15 @@ import clientAxios from '../../../../config/axios'
 import Swal from 'sweetalert2'
 import { useUsers } from '../../../../context/UsersContext'
 import { Link } from 'react-router-dom'
+import { getlocalStorage } from '../../../../utils/localStorage'
 
 function CardEmployee(props) {
   const { changeUsers } = useUsers()
+  const currentUser = getlocalStorage()
+  let role = ''
+  currentUser ? (role = currentUser.role) : (role ='client')
+  console.log(role)
+  
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -19,7 +25,12 @@ function CardEmployee(props) {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        clientAxios.delete(`/users/${id}`).then((res) => {
+        clientAxios.delete(`/users/${id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'role': role,
+          },
+        }).then((res) => {
           if (res.status === 200) {
             changeUsers()
             Swal.fire('Deleted!', res.data.message, 'success')
