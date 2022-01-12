@@ -28,14 +28,14 @@ export default function CartResume() {
           Checkout
         </Link>
       ) : (
-        <>
-          <Link to={'/login'} className="primary">
+        <div className="d-flex justify-content-between">
+          <Link to={'/login'} className="btn btn-primary">
             Login
           </Link>
-          <Link to={'/signup'} className="primary">
+          <Link to={'/signup'} className="btn btn-primary">
             Sign Up
           </Link>
-        </>
+        </div>
       )}
     </Container>
   )

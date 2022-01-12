@@ -117,10 +117,10 @@ export default function Step3() {
           </div>
           <div className="mb-3">
             <h2>Cart items</h2>
-            {products.map((product) => {
+            {products.map((product, index) => {
               return (
                 <CartItem
-                  key={product.id}
+                  key={index}
                   title={product.title}
                   price={product.price}
                 />
