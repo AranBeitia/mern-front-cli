@@ -48,11 +48,12 @@ export default function Step4(props) {
       </div>
       <div>Total amount: {total}€</div>
 
-      <Link to={'/'}>
-        <Button className="w-100" type="submit">
-          Go home
-        </Button>
-      </Link>
+      <Button
+        className="w-100"
+        onClick={() => location.assign('http://localhost:3000/')}
+      >
+        Go home
+      </Button>
     </>
   )
 }
