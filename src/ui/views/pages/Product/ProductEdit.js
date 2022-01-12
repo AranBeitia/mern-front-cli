@@ -47,7 +47,7 @@ function ProductEdit() {
       const res = await clientAxios.patch(`/products/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          role: role,
+          'role': role,
         },
       })
 
