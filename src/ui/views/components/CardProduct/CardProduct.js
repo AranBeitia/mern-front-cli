@@ -22,12 +22,13 @@ function CardProduct({
 }) {
   const [modalShow, setModalShow] = React.useState(false)
   const { change } = useProduct()
+  const { products, addToCart } = useCart()
 
   const currentUser = getlocalStorage()
   let role = ''
-  currentUser ? (currentUser.role) : (role ='client')
+  currentUser ? (role = currentUser.role) : (role ='client')
+  console.log(role)
 
-  const { products, addToCart } = useCart()
   const handleDelete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
